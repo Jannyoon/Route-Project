@@ -63,9 +63,9 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
                 <p className='text-xs md:text-sm border rounded-lg p-1 mb-2'>자기소개 수정하기</p>
               </div>
               <div className='grow'>
-                <div className='flex flex-col h-full'>
+                <div className='flex flex-col h-full items-start'>
                   <p 
-                    className='text-sm md:text-lg font-semibold mb-1 pb-1 hover:cursor-pointer hover:text-brand'
+                    className='grow-0 text-sm md:text-lg font-semibold mb-1 pb-1 hover:cursor-pointer hover:text-brand'
                     onClick={handleChangeNameClick}
                   >{nickName}</p>
                   <div 
@@ -73,7 +73,8 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
                     className='grow text-xs md:text-base'
                     style={viewAll ? {'height':'100%'}:{}}
                     id="presentation"  
-                  ></div> {/* innerHtml이 들어가는 DOM*/}              
+                  ><div ></div>
+                  </div> {/* innerHtml이 들어가는 DOM*/}              
                 </div>
               </div>
             </div> 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { updateUserInfo } from '../api/firebase';
 
 export default function EditUserName() {
@@ -9,6 +9,7 @@ export default function EditUserName() {
   const [newName, setNewName] = useState(''); 
   const [isUpdating, setIsUpdating] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const navigate = useNavigate();
   const userInfo = useLocation().state;
   console.log("받아온 정보", userInfo);
 
@@ -44,7 +45,10 @@ export default function EditUserName() {
   return (
     <div className='w-full flex flex-col items-center'>
       <div className='w-full flex items-center justify-between px-3 mt-6 pb-2 border-b'>
-        <IoIosArrowBack className='text-xl md:text-3xl'/>
+        <IoIosArrowBack 
+          className='text-xl md:text-3xl hover:cursor-pointer hover:text-brand'
+          onClick={()=>navigate('/me')}
+        />
         <div className='text-xs md:text-lg'>별명 변경하기</div>
         <PiDotsThreeVerticalBold className='text-xl md:text-3xl invisible'/>
       </div>
