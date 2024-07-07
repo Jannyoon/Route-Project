@@ -2,25 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/useAuthContext';
 import { getUserProfile } from '../api/firebase';
+import useUserInfo from '../hook/useUserInfo';
 
 export default function Navbar() {
   const {user} = useAuthContext();
-  const [userProfile, setUserProfile] = useState();
-  
-  useEffect(()=>{
-    if (user){
-      getUserProfile(user.uid)
-      .then(result =>{
-       //console.log("useEffect", result);
-       setUserProfile(result);
-      });
-    }
-  },[user])
+  const {userProfile} = useUserInfo();
+  const getProfile = userProfile.data;
 
   const navigate = useNavigate();
   const handleHomeClick = ()=> navigate('/');
   const handleLogInClick = ()=>navigate('join');
-  console.log("navbar 프로필", userProfile);
+  console.log("navbar 프로필", getProfile);
 
 
   return (
@@ -44,10 +36,10 @@ export default function Navbar() {
           className='p-1 md:px-2 bg-brand border rounded-md hover:cursor-pointer'
           onClick={handleLogInClick}  
         >로그인</div>)}
-        {user && userProfile && (
+        {user && getProfile && (
           <img 
             className='w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 border-4 rounded-full hover:border-brand hover:animate-spin hover:cursor-pointer' 
-            src={userProfile['profile_picture']}
+            src={getProfile['profile_picture']}
           />
         )}
       </div>

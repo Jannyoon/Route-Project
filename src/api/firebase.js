@@ -125,6 +125,7 @@ export async function checkPrevIDs(){
 
 export async function getUserProfile(userId){
   const dbRef = ref(getDatabase());
+  if (!userId) return;
   return get(child(dbRef, `users/${userId}`)).then((snapshot) => {
     if (snapshot.exists()) {
       let result = snapshot.val();

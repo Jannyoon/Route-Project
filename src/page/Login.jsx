@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AddNewUser, LogIn, checkPrevIDs, signUp } from '../api/firebase';
 import { useNavigate, } from 'react-router-dom';
+import Button from '../ui/Button';
 
 
 export default function Login() {
@@ -107,10 +108,7 @@ export default function Login() {
             autoComplete="current-password"
             onChange={handlePwChange}
           />
-          <button 
-            className='bg-brand border rounded-md w-64 md:w-72 p-3 text-lg my-3'
-            onClick={handleLogin}
-          >로그인</button>
+          <Button text={"로그인"} onClick={handleLogin}/>
         </form>
       )}
       {!idCheck && !present && (
@@ -129,10 +127,8 @@ export default function Login() {
             type='password'
             value={userPw}
             autoComplete="current-password"
-            onChange={handlePwChange}/>          
-            <button 
-              className='bg-brand border rounded-md w-64 md:w-72 p-3 text-lg my-3'
-              onClick={handleAddClick}>회원 가입</button>     
+            onChange={handlePwChange}/>
+            <Button text={'회원 가입'} onClick={handleAddClick}/>               
             <div 
               className='text-xs mt-3 hover:cursor-pointer hover:text-fcs'
               onClick={handleFarmerClick}>
