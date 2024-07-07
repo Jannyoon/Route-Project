@@ -102,7 +102,8 @@ export function signUp(userId, email, isFarmer) {
     email: email,
     profile_picture : "https://res-console.cloudinary.com/doujrgenf/thumbnails/v1/image/upload/v1720285571/6riw67O47ZSE66Gc7ZWEX2VtaWt5Yw==/drilldown", 
     nickName:"별명을 입력해주세요",
-    isFarmer 
+    isFarmer,
+    for_check : checkId  //추후 회원 탈퇴 시 데이터를 삭제할 때 찾을 수 있도록.
   });
 }
 
@@ -134,5 +135,12 @@ export async function getUserProfile(userId){
   }).catch((error) => {
     console.error(error);
   });
+}
 
+export async function updateUserInfo(userInfo, newProp, newVal){
+  const db = getDatabase();
+  return set(ref(db, 'users/' + userInfo.userId), {
+    ...userInfo,
+    [newProp] : newVal
+  });
 }

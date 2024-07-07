@@ -15,6 +15,7 @@ import ProductDetail from './page/ProductDetail';
 import Login from './page/Login';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './context/useAuthContext';
+import EditUserName from './page/EditUserName';
 
 
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       {path:"story", element:<Story/>},
       {path:'join', element:<Login/>},
       {path:"me", element : <UserPage/>},
+      {path:"me/editName", element : <EditUserName/>},
       {path:"products", element:<Products/>},
       {path:"productDetail", element:<ProductDetail/>}
     ]

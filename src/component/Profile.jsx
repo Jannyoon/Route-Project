@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Button from '../ui/Button';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId}}) {
   const [viewAll, setViewAll] = useState(false);
+  const navigate = useNavigate();
   const prsntRef = useRef();
   let userStr;
   /*나중에 훅으로 바꿀 것*/
@@ -38,6 +40,14 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
     setViewAll(prev => !prev);
   }
 
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId};
+
+  const handleChangeNameClick = ()=>{
+    navigate('/me/editName',
+    {
+      state : userInfo
+    })
+  }
   return (
     <div className='w-10/12 md:w-9/12 mt-7 px-1 md:px-4'>
       <div className='w-full'>
@@ -53,8 +63,11 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
                 <p className='text-xs md:text-sm border rounded-lg p-1 mb-2'>자기소개 수정하기</p>
               </div>
               <div className='grow'>
-                <div className='flex flex-col w-full h-full'>
-                  <p className='text-sm md:text-lg font-semibold mb-1'>{nickName}</p>
+                <div className='flex flex-col h-full'>
+                  <p 
+                    className='text-sm md:text-lg font-semibold mb-1 pb-1 hover:cursor-pointer hover:text-brand'
+                    onClick={handleChangeNameClick}
+                  >{nickName}</p>
                   <div 
                     ref = {prsntRef}
                     className='grow text-xs md:text-base'
