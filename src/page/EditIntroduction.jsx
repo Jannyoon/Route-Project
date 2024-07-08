@@ -13,6 +13,10 @@ export default function EditIntroduction() {
   const hiddenTextRef = useRef();
   
   useEffect(()=>{
+    if (textCount>1500){
+      setIsAble(false);
+    }
+    else !isAble && setIsAble(true);
     console.log(textCount);
   },[textCount])
 
@@ -24,7 +28,7 @@ export default function EditIntroduction() {
   if (realTextRef.current){
     console.log("현재 height", realTextRef.current.style.height)
     const target = hiddenTextRef.current.scrollHeight+40
-    realTextRef.current.style.height = `${target<520 ? 520 : hiddenTextRef.current.scrollHeight+40}px`;
+    realTextRef.current.style.height = `${target<520 ? 520 : hiddenTextRef.current.scrollHeight+38}px`;
   }
   
   const handleTextChange = (e)=>{
@@ -32,14 +36,7 @@ export default function EditIntroduction() {
     setTextCount(e.target.value.length);
   }
 
-  const handleFocus = (e)=>{
-    console.log('동작하나');
-    console.log(e.target);
-    //e.target.scrollIntoView({behavior:"smooth", block:"end"});
-  }
 
-
-  //console.log(hiddenTextRef.current.scrollHeight);
   return (
     <div className='w-full flex flex-col items-center'>
       <div className='w-full flex items-center justify-between px-3 mt-6 pb-2 border-b'>
@@ -51,7 +48,7 @@ export default function EditIntroduction() {
         <FaCheck  className='text-lg md:text-2xl hover:cursor-pointer hover:text-brand invisible'/>
       </div>
     <div className='relative w-10/12 my-6'>
-      <textarea className="border w-full  p-4 h-520" 
+      <textarea className="border w-full p-4 h-520 focus:outline-fcs" 
         value={introduction}
         onChange={handleTextChange}
         ref={realTextRef}
@@ -64,18 +61,29 @@ export default function EditIntroduction() {
         value={introduction}
         id='hidden'
         ref={hiddenTextRef}
-      />
-      <div></div>
+      />    
+      <div className='fixed w-24 h-7 
+        bottom-20 right-4
+        lg:top-36 lg:right-60 
+        text-center border-2 border-brand bg-white rounded-lg'
+        style={{'color' : isAble?'#020617':'#ef4444',
+          'borderColor' : !isAble && '#6b7280'
+        }}
+      >{textCount}/1500</div>
     </div>
     <div className='fixed flex justify-center items-center gap-2 
         bottom-8 right-4 py-2 px-3
-        md:bottom-5 md:right-40 md:py-3 md:px-4
-        bg-brand hover:cursor-pointer hover:scale-105 hover:font-semibold
-        rounded-lg text-white text-sm '>
+        lg:bottom-5 lg:right-44 lg:py-3 lg:px-4 hover:scale-105
+        bg-brand hover:font-semibold
+        rounded-lg text-white text-sm'
+      style={{
+        'backgroundColor' : !isAble ?'#6b7280':'#10B981',
+        'cursor': isAble&&'pointer'
+      }}
+    >
         <FaCheck/>      
         <p>저장</p>
     </div>
-  
 
     </div>     
   );

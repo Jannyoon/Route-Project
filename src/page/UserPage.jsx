@@ -5,10 +5,14 @@ import { IoIosArrowBack } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import Profile from '../component/Profile';
 import UserStory from '../component/UserStory';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserPage() {
   const {user} = useAuthContext();
   const {userProfile} = useUserInfo();
+  const navigate = useNavigate();
+
+
   let [email, isFarmer, nickName, profile_picture, userId] = ['','','','',''];
   const getProfile = userProfile.data;
   if (getProfile){
@@ -24,14 +28,16 @@ export default function UserPage() {
   }
 
   const userInfo = {email, isFarmer, nickName, profile_picture, userId}; 
-  console.log(userInfo);
-  console.log(profile_picture)
+  const handleClick = ()=>{
+    navigate('/');
+  }
+
   return (
     <div className='w-full flex flex-col items-center'>
       <div className='w-full flex items-center justify-between px-3 mt-6 pb-2 border-b'>
-        <IoIosArrowBack className='text-xl md:text-3xl'/>
+        <IoIosArrowBack className='text-xl md:text-3xl hover:cursor-pointer hover:text-brand' onClick={handleClick}/>
         <div className='text-xs md:text-lg'>{getProfile ? getProfile.nickName : "User"}</div>
-        <PiDotsThreeVerticalBold className='text-xl md:text-3xl'/>
+        <PiDotsThreeVerticalBold className='text-xl md:text-3xl hover:cursor-pointer hover:text-brand'/>
       </div>
       <Profile info={userInfo}/>
       <div className='w-full flex gap-2 mt-7 md:mt-10'>
