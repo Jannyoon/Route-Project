@@ -3,23 +3,14 @@ import Button from '../ui/Button';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId}}) {
+export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId, introduction}}) {
   const [viewAll, setViewAll] = useState(false);
   const navigate = useNavigate();
   const prsntRef = useRef();
   let userStr;
   /*나중에 훅으로 바꿀 것*/
-
-  userStr = 
-  `DECLARATIVE & AUTOMATIC
-  Writing your data fetching logic by hand is over. Tell TanStack Query where to get your data and how fresh you need it to be and the rest is automatic. It handles caching, background updates and stale data out of the box with zero-configuration.
-
-  SIMPLE & FAMILIAR
-  If you know how to work with promises or async/await, then you already know how to use TanStack Query. There's no global state to manage, reducers, normalization systems or heavy configurations to understand. Simply pass a function that resolves your data (or throws an error) and the rest is history.
-
-  EXTENSIBLE
-  TanStack Query is configurable down to each observer instance of a query with knobs and options to fit every use-case. It comes wired up with dedicated devtools, infinite-loading APIs, and first class mutation tools that make updating your data a breeze. 
-  Don't worry though, everything is pre-configured for success!`
+  
+  userStr = (introduction || '')
   .split("\n");
 
   //string화. 
@@ -32,7 +23,7 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
     if (convertResult && prsntRef.current){
       prsntRef.current.innerHTML = convertResult;
     }    
-  },[])
+  },[introduction])
 
 
 
@@ -40,10 +31,10 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
     setViewAll(prev => !prev);
   }
 
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId};
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId,  introduction};
 
   const handleChangeNameClick = ()=>{navigate('/me/editName',{state : userInfo})}
-  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction',{state:userInfo})}
+  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction', {state:userInfo})}
   
   return (
     <div className='w-10/12 md:w-9/12 mt-7 px-1 md:px-4'>

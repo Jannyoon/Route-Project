@@ -13,21 +13,22 @@ export default function UserPage() {
   const navigate = useNavigate();
 
 
-  let [email, isFarmer, nickName, profile_picture, userId] = ['','','','',''];
+  let [email, isFarmer, nickName, profile_picture, userId, introduction] = ['','','','','',''];
   const getProfile = userProfile.data;
   if (getProfile){
     console.log("유저 정보", getProfile);
-    [email, isFarmer, nickName, profile_picture, userId] = 
+    [email, isFarmer, nickName, profile_picture, userId, introduction] = 
     [
       getProfile.email,
       getProfile.isFarmer,
       getProfile.nickName,
       getProfile.profile_picture,
-      getProfile.userId
+      getProfile.userId,
+      getProfile.introduction   //초기 설정하지 않은 유저의 introducton은 undefined로 할당될 것이다.
     ];
   }
 
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId}; 
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction}; 
   const handleClick = ()=>{
     navigate('/');
   }

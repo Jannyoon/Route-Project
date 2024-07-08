@@ -1,24 +1,38 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 import { FaCheck } from "react-icons/fa6";
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { updateUserInfo } from '../api/firebase';
+
 
 export default function EditIntroduction() {
   const navigate = useNavigate();
-  const [introduction, setIntroduction] = useState('');
   const [isAble, setIsAble] = useState(true);
   const [textCount, setTextCount] = useState(0); //타이핑을 칠 때마다 띄워주는 용도
-  
+  const data = useLocation().state;
+  let [email, isFarmer, nickName, profile_picture, userId, introduction] = 
+  [
+    data.email,
+    data.isFarmer,
+    data.nickName,
+    data.profile_picture,
+    data.userId,
+    data.introduction   //초기 설정하지 않은 유저의 introducton은 undefined로 할당될 것이다.
+  ];
+  const userInfo = data;
+  const [text, setText] = useState('');
+
   const realTextRef = useRef();
   const hiddenTextRef = useRef();
   
+  //실시간으로 글자수 제한 CHECK
   useEffect(()=>{
     if (textCount>1500){
       setIsAble(false);
     }
     else !isAble && setIsAble(true);
-    console.log(textCount);
   },[textCount])
+
 
   if (hiddenTextRef.current){
     hiddenTextRef.current.style.height = 'auto';
@@ -32,10 +46,20 @@ export default function EditIntroduction() {
   }
   
   const handleTextChange = (e)=>{
-    setIntroduction(e.target.value);
+    setText(e.target.value);
     setTextCount(e.target.value.length);
   }
 
+  const handleClick = (e)=>{
+    if (!isAble) return;
+    updateUserInfo(userInfo, 'introduction', text)
+    .then(()=>{
+      setText('');
+      setTextCount(0);
+      alert("변경 완료");
+    })
+
+  }
 
   return (
     <div className='w-full flex flex-col items-center'>
@@ -49,7 +73,7 @@ export default function EditIntroduction() {
       </div>
     <div className='relative w-10/12 my-6'>
       <textarea className="border w-full p-4 h-520 focus:outline-fcs" 
-        value={introduction}
+        value={text}
         onChange={handleTextChange}
         ref={realTextRef}
         style={{
@@ -58,7 +82,7 @@ export default function EditIntroduction() {
       />
       <textarea 
         className='absolute disable:true bg-blue-200 top-40 right-96 invisible'
-        value={introduction}
+        value={text}
         id='hidden'
         ref={hiddenTextRef}
       />    
@@ -80,6 +104,7 @@ export default function EditIntroduction() {
         'backgroundColor' : !isAble ?'#6b7280':'#10B981',
         'cursor': isAble&&'pointer'
       }}
+      onClick={handleClick}
     >
         <FaCheck/>      
         <p>저장</p>
