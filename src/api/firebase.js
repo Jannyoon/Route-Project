@@ -100,7 +100,7 @@ export function signUp(userId, email, isFarmer) {
   return set(ref(db, 'users/' + userId), {
     userId,
     email: email,
-    profile_picture : "https://res-console.cloudinary.com/doujrgenf/thumbnails/v1/image/upload/v1720285571/6riw67O47ZSE66Gc7ZWEX2VtaWt5Yw==/drilldown", 
+    profile_picture: 'https://res.cloudinary.com/doujrgenf/image/upload/v1720285571/%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_emikyc.jpg',
     nickName:"별명을 입력해주세요",
     isFarmer,
     for_check : checkId  //추후 회원 탈퇴 시 데이터를 삭제할 때 찾을 수 있도록.
@@ -115,9 +115,7 @@ export async function checkPrevIDs(){
       let result = Object.values(snapshot.val())
       console.log(result);
       return result;
-    } else {
-      console.log("No data available");
-    }
+    } else return [];
   }).catch((error) => {
     console.error(error);
   });

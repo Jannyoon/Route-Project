@@ -13,11 +13,19 @@ export default function UserPage() {
   const getProfile = userProfile.data;
   if (getProfile){
     console.log("유저 정보", getProfile);
-    [email, isFarmer, nickName, profile_picture, userId] = Object.values(getProfile);
+    [email, isFarmer, nickName, profile_picture, userId] = 
+    [
+      getProfile.email,
+      getProfile.isFarmer,
+      getProfile.nickName,
+      getProfile.profile_picture,
+      getProfile.userId
+    ];
   }
 
   const userInfo = {email, isFarmer, nickName, profile_picture, userId}; 
   console.log(userInfo);
+  console.log(profile_picture)
   return (
     <div className='w-full flex flex-col items-center'>
       <div className='w-full flex items-center justify-between px-3 mt-6 pb-2 border-b'>
