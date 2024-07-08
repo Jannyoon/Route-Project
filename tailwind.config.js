@@ -6,7 +6,11 @@ module.exports = {
       colors : {
         'brand' : '#10B981',
         'fcs' : '#fdba74'
+      },
+      spacing : {
+        '520':'32.5rem'
       }
+
     },
   },
   plugins: [],

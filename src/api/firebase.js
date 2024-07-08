@@ -87,7 +87,6 @@ export async function LogOut(){
 /*realtime Database */
 export function signUp(userId, email, isFarmer) {
   const db = getDatabase();
-  const checkId = uuidv4();
   if (isFarmer){
     set(ref(db, 'Farmers/' + userId), {
       userId,
@@ -95,7 +94,7 @@ export function signUp(userId, email, isFarmer) {
     });
   }
   //idCheck를 위해 email만 저장해놓는다.
-  userId && set(ref(db, 'FOR_ID_CHECK/'+checkId), email);
+  userId && set(ref(db, 'FOR_ID_CHECK/'+userId), email);
 
   return set(ref(db, 'users/' + userId), {
     userId,
@@ -103,7 +102,6 @@ export function signUp(userId, email, isFarmer) {
     profile_picture: 'https://res.cloudinary.com/doujrgenf/image/upload/v1720285571/%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_emikyc.jpg',
     nickName:"별명을 입력해주세요",
     isFarmer,
-    for_check : checkId  //추후 회원 탈퇴 시 데이터를 삭제할 때 찾을 수 있도록.
   });
 }
 

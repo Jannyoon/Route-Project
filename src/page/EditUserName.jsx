@@ -71,8 +71,6 @@ export default function EditUserName() {
         {isUpdating && (<div className='mt-2 text-sm'>닉네임 변경 중...</div>)}
         {isSuccess && (<div className='mt-2 text-sm'>닉네임 변경 성공 ✅</div>)}
       </form>
-
-      
     </div>
   );
 }

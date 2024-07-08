@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AddNewUser, LogIn, checkPrevIDs, signUp } from '../api/firebase';
 import { useNavigate, } from 'react-router-dom';
 import Button from '../ui/Button';
+import { useAuthContext } from '../context/useAuthContext';
 
 
 export default function Login() {
@@ -11,10 +12,18 @@ export default function Login() {
   const [present, setPresent] = useState(true); //기존 회원 여부를 확인한다.
   const [idCheck, setIdCheck] = useState(false); //email만 입력했을 때 기존 회원 여부를 알아서 확인한다.
   const [isFarmer, setIsFarmer] = useState(false); //사업자인지 확인하는 용도
+  const { user } = useAuthContext();
 
   useEffect(()=>{
     console.log("현재 farmer의 상태", isFarmer);
   }, [isFarmer])
+
+  useEffect(()=>{
+    if (user){
+      alert("이미 로그인된 유저입니다.");
+      navigate('/', {replace:true});
+    }
+  },[]);
 
   const handleEmailChange = (e) => setUserEmail(e.target.value);
   const handlePwChange = (e) => setUserPw(e.target.value);
@@ -58,7 +67,7 @@ export default function Login() {
 
   const handleLogin = (e)=>{
     e.preventDefault();
-    LogIn(userEmail, userPw, ()=>navigate('/'))
+    LogIn(userEmail, userPw, ()=>navigate('/', {replace: true}))
     .then((result)=>{
       console.log("로그인 결과", result);
     }).catch((error)=>console.log(error));

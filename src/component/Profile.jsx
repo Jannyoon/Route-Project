@@ -42,12 +42,9 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
 
   const userInfo = {email, isFarmer, nickName, profile_picture, userId};
 
-  const handleChangeNameClick = ()=>{
-    navigate('/me/editName',
-    {
-      state : userInfo
-    })
-  }
+  const handleChangeNameClick = ()=>{navigate('/me/editName',{state : userInfo})}
+  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction',{state:userInfo})}
+  
   return (
     <div className='w-10/12 md:w-9/12 mt-7 px-1 md:px-4'>
       <div className='w-full'>
@@ -60,7 +57,9 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
           > {/*overflow-hidden 관리 */}
             <div className='h-full w-full flex flex-col'>
               <div className='flex justify-end'>
-                <p className='text-xs md:text-sm border rounded-lg p-1 mb-2'>자기소개 수정하기</p>
+                <p className='text-xs md:text-sm border rounded-lg p-1 mb-2 hover:bg-slate-50 hover:cursor-pointer'
+                  onClick={handleChangeIntroduction}
+                >자기소개 수정하기</p>
               </div>
               <div className='grow'>
                 <div className='flex flex-col h-full items-start'>
@@ -73,7 +72,7 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
                     className='grow text-xs md:text-base'
                     style={viewAll ? {'height':'100%'}:{}}
                     id="presentation"  
-                  ><div ></div>
+                  >
                   </div> {/* innerHtml이 들어가는 DOM*/}              
                 </div>
               </div>
