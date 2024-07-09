@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/useAuthContext';
-import { getUserProfile } from '../api/firebase';
+import { getAuthChanged } from '../api/firebase';
+
 import { TbSquarePlus2 } from "react-icons/tb";
 import useUserInfo from '../hook/useUserInfo';
 
 export default function Navbar() {
-  const {user} = useAuthContext();
+  const {user, Login, LogOut} = useAuthContext();
+  const [nowUser, setNowUser] = useState();
   const {userProfile} = useUserInfo();
-  const getProfile = userProfile.data;
+
+  let getProfile = userProfile.data;
 
   const navigate = useNavigate();
   const handleHomeClick = ()=> navigate('/');
   const handleLogInClick = ()=>navigate('join');
-  console.log("navbar 프로필", getProfile);
+
 
 
   return (
@@ -30,9 +33,11 @@ export default function Navbar() {
       </div>
       <div className='flex justify-center items-center'>
         <input 
-          className='w-24 h-6 md:w-60 bg-transparent border-b-2 border-brand focus:outline-none focus:border-fcs p-2' placeholder='검색' 
+          className='w-24 h-6 mr-1.5 md:w-60 bg-transparent border-b-2 border-brand focus:outline-none focus:border-fcs p-2' placeholder='검색' 
         />
-        <div className='mx-2 md:mx-3 hover:cursor-pointer text-2xl md:text-3xl text-center hover:text-brand'><TbSquarePlus2 /></div>
+        {user && (<div className='mx-2 md:mx-3 hover:cursor-pointer text-2xl md:text-3xl text-center hover:text-brand'>
+          <TbSquarePlus2 />
+        </div>)}
         {!user && (
           <div 
           className='p-1 md:px-2 bg-brand border rounded-md hover:cursor-pointer'

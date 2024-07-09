@@ -6,23 +6,34 @@ import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import Profile from '../component/Profile';
 import UserStory from '../component/UserStory';
 import { useNavigate } from 'react-router-dom';
+import { IoExitOutline } from "react-icons/io5";
+import { useQueryClient } from '@tanstack/react-query'
+import { getAuth } from 'firebase/auth';
+import FarmerAccount from '../component/FarmerAccount';
 
 export default function UserPage() {
-  const {user} = useAuthContext();
-  const {userProfile} = useUserInfo();
+  const {user, LogIn, LogOut} = useAuthContext();
+
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const [logUser, setLogUser] = useState(true);
+  console.log("현재 유저", user)
+  if (!user){
+    alert("회원만 이용 가능합니다.");
+    navigate('/', {replace:true});
+  }
+
+  const {userProfile, logOutUser} = useUserInfo();
   const [view, setView] = useState(false);
+  const [farmerAccount, setFarmerAccount] = useState(false);
 
   const additionalView = useRef();
   const threePoint = useRef();
-
-
-  const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
 
   let [email, isFarmer, nickName, profile_picture, userId, introduction] = ['','','','','',''];
   const getProfile = userProfile.data;
   if (getProfile){
-    console.log("유저 정보", getProfile);
     [email, isFarmer, nickName, profile_picture, userId, introduction] = 
     [
       getProfile.email,
@@ -35,51 +46,70 @@ export default function UserPage() {
   }
 
   const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction}; 
-  const handleClick = ()=>{
-    navigate('/');
+  const handleClick = ()=> navigate('/');
+  const handleAdditionalView = ()=> setView(true);
+
+  const handleLogOut = ()=>{
+    LogOut();    
+    window.location.replace('/'); 
   }
+
+  const handleFarmerSet = ()=>{
+    setFarmerAccount(prev => !prev);
+    setView(prev => !prev);
+  }
+  
 
   //ref 영역 밖을 선택했을 때 Element가 보이지 않게...
   useEffect(()=>{
     console.log(view);
     const handleClick =(e)=>{
       if (threePoint.current){
-        console.log("포함하는가", threePoint.current.contains(e.target))
         if (threePoint.current.contains(e.target)) return;
         if (view && additionalView.current && !additionalView.current.contains(e.target)) setView(false);
       }
     }
     document.addEventListener('click', handleClick);
-
   }, [view])
 
-  const handleAdditionalView = ()=>{
-    setView(true);
+
+
+  if (!logUser || !user){
+    return (
+      <div>로그인 후 이용</div>
+    )
   }
 
   return (
-    <div className='w-full flex flex-col items-center'>
+    <div className='relative w-full flex flex-col items-center'>
       <div className='w-full flex items-center justify-between px-3 mt-6 pb-2 border-b'>
         <IoIosArrowBack className='text-xl md:text-3xl hover:cursor-pointer hover:text-brand' onClick={handleClick}/>
         <div className='text-xs md:text-lg'>{getProfile ? getProfile.nickName : "User"}</div>
         <div className='relative'>
-          <div ref={threePoint}><PiDotsThreeVerticalBold 
-            className='text-xl md:text-3xl hover:cursor-pointer hover:text-brand'
-            onClick={handleAdditionalView}
-          /></div>
+          <div ref={threePoint}>
+            <PiDotsThreeVerticalBold 
+              className='text-xl md:text-3xl hover:cursor-pointer hover:text-brand'
+              onClick={handleAdditionalView}
+            />
+          </div>
           {view && (
             <div className='absolute 
-              flex flex-col text-center
-              top-2.5 right-2 w-24 p-1
-              lg:top-4 lg:right-3.5 lg:w-36
-            bg-red-300 hover:cursor-pointer'
+              flex flex-col 
+              top-2.5 right-2 w-56 px-3 py-2 
+              lg:top-4 lg:right-3.5 
+              border rounded-lg bg-white shadow-lg
+              hover:cursor-pointer'
               ref={additionalView}
             >
-              <div>1</div>
-              <div>2</div>
-              <div>3</div>
-              <div>4</div>
-              <div>5</div>
+              <div className='flex items-center hover:text-logout hover:bg-slate-50 hover:font-semibold my-1 mb-2'>
+                <IoExitOutline className='text-3xl mr-1 '/>
+                <p className='text-lg' onClick={handleLogOut}>로그아웃</p>
+              </div>
+              <div 
+                className='hover:bg-slate-50 hover:font-semibold'
+                onClick={handleFarmerSet}
+              >농어부/일반 계정 설정하기</div>
+              <div className='hover:bg-slate-50 hover:font-semibold'>회원 탈퇴하기</div>
           </div>)}        
         </div>
 
@@ -91,7 +121,8 @@ export default function UserPage() {
         <div className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100'>Story</div>     
         <div className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100'>리뷰</div>   
       </div>
-      <UserStory/>
+      <UserStory />
+      {farmerAccount && <FarmerAccount onCheck={handleFarmerSet} info={userInfo}/>}
     </div>
   );
 }

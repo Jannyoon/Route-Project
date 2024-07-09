@@ -30,6 +30,10 @@ export default function EditUserName() {
 
   const handleSubmit = (e)=>{
     e.preventDefault();
+    if (newName.length<1){
+      alert("닉네임은 1글자 이상 입력해주세요.");
+      return;
+    }
     setNewName('');
     setIsTyping(false);
     setIsUpdating(true);

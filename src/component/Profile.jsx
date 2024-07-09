@@ -1,15 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Button from '../ui/Button';
 import { useNavigate } from 'react-router-dom';
-
+import { IoBagCheckSharp } from "react-icons/io5";
 
 export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId, introduction}}) {
   const [viewAll, setViewAll] = useState(false);
   const navigate = useNavigate();
   const prsntRef = useRef();
   let userStr;
-  /*나중에 훅으로 바꿀 것*/
-  
   userStr = (introduction || '')
   .split("\n");
 
@@ -54,10 +52,13 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
               </div>
               <div className='grow'>
                 <div className='flex flex-col h-full items-start'>
-                  <p 
-                    className='grow-0 text-sm md:text-lg font-semibold mb-1 pb-1 hover:cursor-pointer hover:text-brand'
+                  <div 
+                    className='grow-0 flex items-center text-sm md:text-lg font-semibold mb-1 pb-1 hover:cursor-pointer hover:text-brand'
                     onClick={handleChangeNameClick}
-                  >{nickName}</p>
+                  >
+                    <p className='mx-1'>{nickName}</p>
+                    {isFarmer && <IoBagCheckSharp className='text-brand'/>}
+                  </div>
                   <div 
                     ref = {prsntRef}
                     className='grow text-xs md:text-base'

@@ -6,10 +6,11 @@ const authContext = createContext({Children});
 
 export default function AuthContextProvider({children}) {
   const [nowUser, setNowUser] = useState();
-  console.log("현재 로그인 된 유저", nowUser);
+
   useEffect(()=>{
-    getAuthChanged((user)=>setNowUser(user))
-  },[])
+    getAuthChanged((nowUser)=>setNowUser(nowUser));
+    console.log("확인중");
+  },[]);
 
   return (
     <authContext.Provider value={{user:nowUser, LogIn, LogOut}}>

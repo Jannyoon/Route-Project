@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { v4 as uuidv4 } from 'uuid';
-import { getDatabase, ref, set, child, get } from "firebase/database";
+import { getDatabase, ref, set, child, get, remove } from "firebase/database";
 import { 
   getAuth, 
   onAuthStateChanged, 
@@ -102,6 +102,7 @@ export function signUp(userId, email, isFarmer) {
     profile_picture: 'https://res.cloudinary.com/doujrgenf/image/upload/v1720285571/%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84_emikyc.jpg',
     nickName:"별명을 입력해주세요",
     isFarmer,
+    story:'0'
   });
 }
 
@@ -133,10 +134,29 @@ export async function getUserProfile(userId){
   });
 }
 
+//프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
 export async function updateUserInfo(userInfo, newProp, newVal){
   const db = getDatabase();
   return set(ref(db, 'users/' + userInfo.userId), {
     ...userInfo,
     [newProp] : newVal
+  }).catch(()=>{
+    console.log("여기서 에러 발생");
   });
+}
+
+
+//farmer
+export async function updateFarmerInfo(userId, userInfo){
+  const db = getDatabase();
+
+  if (userId){  
+    if (!userInfo.isFarmer){
+      remove(ref(db, 'Farmers/'+userId)).catch(console.error);
+    }
+    else set(ref(db, 'Farmers/'+userId), {email:userInfo.email, userId})
+    return set(ref(db, 'users/' + userId), userInfo).catch(()=>{
+      console.log("여기서 에러 발생");
+    });
+  }
 }
