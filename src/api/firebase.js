@@ -7,7 +7,8 @@ import {
   onAuthStateChanged, 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut
+  signOut,
+  deleteUser
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -159,4 +160,29 @@ export async function updateFarmerInfo(userId, userInfo){
       console.log("여기서 에러 발생");
     });
   }
+}
+
+export async function removeUser(userId){
+  /*
+  1)forIdCheck/userId 삭제
+  2) isFarmer가 true 값이라면 Farmer/userId도 삭제
+  3) users/userId도 삭제
+  4) Authentication 삭제가 마지막
+  
+  */
+  const db = getDatabase();
+  if (!userId) return;
+  remove(ref(db, 'FOR_ID_CHECK/'+userId)).catch(console.error);
+  remove(ref(db, 'Farmers/'+userId)).catch(console.error);
+  remove(ref(db, 'users/'+userId)).catch(console.error); 
+  return deleteUserAuth();
+}
+
+export async function deleteUserAuth(){
+  const user = auth.currentUser;
+
+  return deleteUser(user).then(() => {
+    console.log("authentication 삭제")
+  }).catch(console.error);
+
 }

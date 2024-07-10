@@ -3,7 +3,7 @@ import Button from '../ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { IoBagCheckSharp } from "react-icons/io5";
 
-export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId, introduction}}) {
+export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId, introduction=''}}) {
   const [viewAll, setViewAll] = useState(false);
   const navigate = useNavigate();
   const prsntRef = useRef();
@@ -29,7 +29,7 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
     setViewAll(prev => !prev);
   }
 
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId,  introduction};
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction};
 
   const handleChangeNameClick = ()=>{navigate('/me/editName',{state : userInfo})}
   const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction', {state:userInfo})}

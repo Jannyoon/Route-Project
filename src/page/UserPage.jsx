@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { IoExitOutline } from "react-icons/io5";
 import { useQueryClient } from '@tanstack/react-query'
 import { getAuth } from 'firebase/auth';
-import FarmerAccount from '../component/FarmerAccount';
+import ChangingAccount from '../component/ChangingAccount';
 
 export default function UserPage() {
   const {user, LogIn, LogOut} = useAuthContext();
@@ -17,7 +17,7 @@ export default function UserPage() {
   const auth = getAuth();
   const navigate = useNavigate();
   const [logUser, setLogUser] = useState(true);
-  console.log("현재 유저", user)
+  console.log("현재 유저", user);
   if (!user){
     alert("회원만 이용 가능합니다.");
     navigate('/', {replace:true});
@@ -25,8 +25,8 @@ export default function UserPage() {
 
   const {userProfile, logOutUser} = useUserInfo();
   const [view, setView] = useState(false);
-  const [farmerAccount, setFarmerAccount] = useState(false);
-
+  const [farmerAccount, setFarmerAccount] = useState(false);//호출 해야 하는가
+  const [removeAccount, setRemoveAccount] = useState(false)
   const additionalView = useRef();
   const threePoint = useRef();
   const queryClient = useQueryClient();
@@ -54,10 +54,9 @@ export default function UserPage() {
     window.location.replace('/'); 
   }
 
-  const handleFarmerSet = ()=>{
-    setFarmerAccount(prev => !prev);
-    setView(prev => !prev);
-  }
+  const handleView = ()=>setView(prev => !prev);
+  const handleFarmerSet = ()=>setFarmerAccount(prev => !prev);
+  const handleRemoveAccountSet = ()=>setRemoveAccount(prev => !prev);
   
 
   //ref 영역 밖을 선택했을 때 Element가 보이지 않게...
@@ -107,9 +106,17 @@ export default function UserPage() {
               </div>
               <div 
                 className='hover:bg-slate-50 hover:font-semibold'
-                onClick={handleFarmerSet}
+                onClick={()=>{
+                  handleFarmerSet();
+                  handleView();
+                }}
               >농어부/일반 계정 설정하기</div>
-              <div className='hover:bg-slate-50 hover:font-semibold'>회원 탈퇴하기</div>
+              <div className='hover:bg-slate-50 hover:font-semibold'
+                onClick={()=>{
+                  handleRemoveAccountSet();
+                  handleView();
+                }}
+              >회원 탈퇴하기</div>
           </div>)}        
         </div>
 
@@ -122,7 +129,10 @@ export default function UserPage() {
         <div className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100'>리뷰</div>   
       </div>
       <UserStory />
-      {farmerAccount && <FarmerAccount onCheck={handleFarmerSet} info={userInfo}/>}
+      {(farmerAccount || removeAccount) && (<ChangingAccount onCheck={{handleFarmerSet, handleView, handleRemoveAccountSet}} 
+        info={userInfo} 
+        settingFarmer={farmerAccount} 
+        removingUser={removeAccount}/>)}
     </div>
   );
 }

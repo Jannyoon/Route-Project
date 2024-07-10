@@ -7,7 +7,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { useAuthContext } from '../context/useAuthContext';
-import { getUserProfile } from '../api/firebase';
+import { getUserProfile, removeUser } from '../api/firebase';
 import { getAuth } from 'firebase/auth';
 import { updateFarmerInfo } from '../api/firebase';
 
@@ -17,7 +17,6 @@ export default function useUserInfo() {
   const {user, LogOut} = useAuthContext();
   const queryClient = useQueryClient();
   const uid = user&& user.uid
-  const farmer = user && user.isFarmer;
 
   const userProfile = useQuery({
     queryKey : ['users', uid||""],
@@ -48,6 +47,17 @@ export default function useUserInfo() {
     }
   })
 
-  return {userProfile, newSetFarmerInfo, logOutUser};
+  const deleteAuth = useMutation({
+    mutationFn : ()=>removeUser(uid),
+    onSuccess : ()=>{
+      queryClient.invalidateQueries({queryKey:['users', uid||""]});
+      queryClient.invalidateQueries({queryKey:['Farmers', uid||""]});
+      queryClient.invalidateQueries({queryKey:['FOR_ID_CHECK', uid||""]});      
+      //firebase 데이터 삭제 후 authentication 삭제
+      console.log("삭제완료")
+    }
+  })
+
+  return {userProfile, newSetFarmerInfo, logOutUser, deleteAuth};
 }
 
