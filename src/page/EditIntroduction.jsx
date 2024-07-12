@@ -69,7 +69,8 @@ export default function EditIntroduction() {
         onChange={handleTextChange}
         ref={realTextRef}
         style={{
-          'overflow-y':'hidden'
+          'overflow-y':'hidden',
+          'resize':'none'
         }}
       />
       <textarea 

@@ -59,7 +59,6 @@ export default function UserPage() {
   const handleView = ()=>setView(prev => !prev);
   const handleFarmerSet = ()=>setFarmerAccount(prev => !prev);
   const handleRemoveAccountSet = ()=>setRemoveAccount(prev => !prev);
-  
 
   //ref 영역 밖을 선택했을 때 Element가 보이지 않게...
   useEffect(()=>{

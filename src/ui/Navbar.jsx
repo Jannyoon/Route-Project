@@ -16,7 +16,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const handleHomeClick = ()=> navigate('/');
   const handleLogInClick = ()=>navigate('join');
-
+  const handleAddStory = ()=> navigate('/me/add-story')
 
 
   return (
@@ -35,7 +35,9 @@ export default function Navbar() {
         <input 
           className='w-24 h-6 mr-1.5 md:w-60 bg-transparent border-b-2 border-brand focus:outline-none focus:border-fcs p-2' placeholder='검색' 
         />
-        {user && (<div className='mx-2 md:mx-3 hover:cursor-pointer text-2xl md:text-3xl text-center hover:text-brand'>
+        {user && (<div className='mx-2 md:mx-3 hover:cursor-pointer text-2xl md:text-3xl text-center hover:text-brand'
+          onClick={handleAddStory}
+        >
           <TbSquarePlus2 />
         </div>)}
         {!user && (
