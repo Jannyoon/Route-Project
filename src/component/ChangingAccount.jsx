@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { VscTriangleDown } from "react-icons/vsc";
 import { IoBagCheckSharp } from "react-icons/io5";
 import useUserInfo from '../hook/useUserInfo';
+import { deleteUserAuth } from '../api/firebase';
 
-export default function ChangingAccount({onCheck, info:{email, isFarmer, nickName, profile_picture, userId, introduction},
+export default function ChangingAccount({onCheck, info:{email, isFarmer, nickName, profile_picture, userId, introduction, story},
 settingFarmer, removingUser}) {
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction}
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story: story||""}
   const {newSetFarmerInfo, deleteAuth} = useUserInfo();
   const {handleFarmerSet, handleView, handleRemoveAccountSet} = onCheck;
        //회원 탈퇴 로직
@@ -27,8 +28,14 @@ settingFarmer, removingUser}) {
     })
   }
 
-  const handleDeleteUser = ()=>{
-    deleteAuth.mutate();
+  const handleDeleteUser = async ()=>{
+    userInfo && deleteAuth.mutate(null,{
+      onSuccess : (result)=>{ 
+        console.log("성공", result)
+      },
+    });
+
+    await deleteUserAuth();
     window.location.replace('/')
   }
   

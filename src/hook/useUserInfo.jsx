@@ -51,7 +51,6 @@ export default function useUserInfo() {
     mutationFn : ()=>removeUser(uid),
     onSuccess : ()=>{
       queryClient.invalidateQueries({queryKey:['users', uid||""]});
-      queryClient.invalidateQueries({queryKey:['Farmers', uid||""]});
       queryClient.invalidateQueries({queryKey:['FOR_ID_CHECK', uid||""]});      
       //firebase 데이터 삭제 후 authentication 삭제
       console.log("삭제완료")

@@ -33,8 +33,9 @@ export default function UserPage() {
 
   let [email, isFarmer, nickName, profile_picture, userId, introduction, story] = ['','','','','','',''];
   const getProfile = userProfile.data;
+
   if (getProfile){
-    [email, isFarmer, nickName, profile_picture, userId, introduction] = 
+    [email, isFarmer, nickName, profile_picture, userId, introduction, story] = 
     [
       getProfile.email,
       getProfile.isFarmer,

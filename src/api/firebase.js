@@ -175,10 +175,9 @@ export async function removeUser(userId){
   remove(ref(db, 'FOR_ID_CHECK/'+userId)).catch(console.error);
   remove(ref(db, 'Farmers/'+userId)).catch(console.error);
   remove(ref(db, 'users/'+userId)).catch(console.error); 
-  return deleteUserAuth();
 }
 
-export async function deleteUserAuth(){
+export function deleteUserAuth(){
   const user = auth.currentUser;
 
   return deleteUser(user).then(() => {
