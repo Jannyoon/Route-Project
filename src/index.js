@@ -16,6 +16,7 @@ import Login from './page/Login';
 import reportWebVitals from './reportWebVitals';
 import EditUserName from './page/EditUserName';
 import EditIntroduction from './page/EditIntroduction';
+import EditProfileImage from './page/EditProfileImage';
 
 
 
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       {path:"me", element:<UserPage/>},
       {path:"me/editName", element:<EditUserName/>},
       {path:"me/edit-introduction", element:<EditIntroduction/>},
+      {path:"me/edit-profile-image", element:<EditProfileImage/>},
       {path:"products", element:<Products/>},
       {path:"productDetail", element:<ProductDetail/>}
     ]

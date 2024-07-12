@@ -12,7 +12,7 @@ export default function EditUserName() {
   const navigate = useNavigate();
   const userInfo = useLocation().state;
   console.log("받아온 정보", userInfo);
-
+  
   const handleFocusIn = (e)=>{
     setIsTyping(true);
     console.log("들어감");

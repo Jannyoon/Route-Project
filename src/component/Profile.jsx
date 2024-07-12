@@ -3,7 +3,7 @@ import Button from '../ui/Button';
 import { useNavigate } from 'react-router-dom';
 import { IoBagCheckSharp } from "react-icons/io5";
 
-export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId, introduction=''}}) {
+export default function Profile({info:{email, isFarmer, nickName, profile_picture, userId, introduction='', story}}) {
   const [viewAll, setViewAll] = useState(false);
   const navigate = useNavigate();
   const prsntRef = useRef();
@@ -24,23 +24,23 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
   },[introduction])
 
 
-
   const handleHidePresent = ()=>{
     setViewAll(prev => !prev);
   }
 
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction};
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story};
 
   const handleChangeNameClick = ()=>{navigate('/me/editName',{state : userInfo})}
-  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction', {state:userInfo})}
-  
+  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction', {state :userInfo})}
+  const handleChangeProfileImage = ()=>{navigate('/me/edit-profile-image', {state : userInfo})}
   return (
     <div className='w-10/12 md:w-9/12 mt-7 px-1 md:px-4'>
       <div className='w-full'>
         <div className='flex'> {/*1*/}
           <img 
-            className='w-20 h-20 md:w-36 md:h-36 rounded-full mr-3 md:mr-5'
-            src={profile_picture}/>
+            className='w-20 h-20 md:w-36 md:h-36 rounded-full mr-3 md:mr-5 hover:cursor-pointer hover:scale-105'
+            src={profile_picture}
+            onClick={handleChangeProfileImage}/>
           <div className='grow h-20 md:h-36'
             style={!viewAll ? {'overflow':'hidden'}:{'height':'100%'}}
           > {/*overflow-hidden 관리 */}
@@ -50,7 +50,7 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
                   onClick={handleChangeIntroduction}
                 >자기소개 수정하기</p>
               </div>
-              <div className='grow'>
+              <div>
                 <div className='flex flex-col h-full items-start'>
                   <div 
                     className='grow-0 flex items-center text-sm md:text-lg font-semibold mb-1 pb-1 hover:cursor-pointer hover:text-brand'
@@ -61,7 +61,7 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
                   </div>
                   <div 
                     ref = {prsntRef}
-                    className='grow text-xs md:text-base'
+                    className='text-xs md:text-base'
                     style={viewAll ? {'height':'100%'}:{}}
                     id="presentation"  
                   >

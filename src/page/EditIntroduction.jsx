@@ -10,15 +10,7 @@ export default function EditIntroduction() {
   const [isAble, setIsAble] = useState(true);
   const [textCount, setTextCount] = useState(0); //타이핑을 칠 때마다 띄워주는 용도
   const data = useLocation().state;
-  let [email, isFarmer, nickName, profile_picture, userId, introduction] = 
-  [
-    data.email,
-    data.isFarmer,
-    data.nickName,
-    data.profile_picture,
-    data.userId,
-    data.introduction   //초기 설정하지 않은 유저의 introducton은 undefined로 할당될 것이다.
-  ];
+
   const userInfo = data;
   const [text, setText] = useState('');
 

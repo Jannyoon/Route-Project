@@ -31,7 +31,7 @@ export default function UserPage() {
   const threePoint = useRef();
   const queryClient = useQueryClient();
 
-  let [email, isFarmer, nickName, profile_picture, userId, introduction] = ['','','','','',''];
+  let [email, isFarmer, nickName, profile_picture, userId, introduction, story] = ['','','','','','',''];
   const getProfile = userProfile.data;
   if (getProfile){
     [email, isFarmer, nickName, profile_picture, userId, introduction] = 
@@ -41,11 +41,12 @@ export default function UserPage() {
       getProfile.nickName,
       getProfile.profile_picture,
       getProfile.userId,
-      getProfile.introduction   //초기 설정하지 않은 유저의 introducton은 undefined로 할당될 것이다.
+      getProfile.introduction,
+      getProfile.story   //초기 설정하지 않은 유저의 introducton은 undefined로 할당될 것이다.
     ];
   }
 
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction}; 
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story}; 
   const handleClick = ()=> navigate('/');
   const handleAdditionalView = ()=> setView(true);
 
