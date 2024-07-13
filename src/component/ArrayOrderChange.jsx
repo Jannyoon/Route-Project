@@ -1,10 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MdDelete } from "react-icons/md";
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 export default function ArrayOrderChange({imageList, onCancel}) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const imgList = [...imageList];
+  const prame = useRef();
+  console.log("이미지 리스트", imgList);
+
+
+
+  useEffect(()=>{
+    const handleClick = (e)=>{
+      const target = e.target;
+      const img = target.parentElement;
+
+      let targetList;
+      if (prame.current && prame.current.contains(target)){
+        targetList = [...prame.current.childNodes];
+        if (targetList.includes(target) || targetList.includes(img)){
+          let idx = -1;
+          idx = targetList.indexOf(target);
+          if (idx===-1) idx = targetList.indexOf(img);
+
+          //기존의 테두리 색은 검정으로 다시 되돌려준다.
+          const prev = prame.current.childNodes[currentIdx];
+          prev.style['backgroundColor']='black';
+          setCurrentIdx(idx);
+        }
+      }
+    }
+    document.addEventListener("click",handleClick)
+
+    if (prame.current){
+      const target = prame.current.childNodes[currentIdx];
+      target.style["backgroundColor"]="#10B981";
+    }
+
+    return ()=>{document.removeEventListener("click", handleClick)}
+  }, [currentIdx]);
+
+
+
 
   return (
     <div className='absolute w-full h-screen bg-black/75 flex flex-col items-center'>
@@ -13,7 +50,7 @@ export default function ArrayOrderChange({imageList, onCancel}) {
           <div 
           className='hover:text-fcs hover:cursor-pointer'
           onClick={onCancel}>취소</div>
-          <div>사진 수정하기</div>
+          <div>사진 순서 수정하기</div>
           <div>적용</div>
         </div>{/*윗 테두리 */}
         <div className='flex flex-col w-full h-full items-center'>
@@ -26,10 +63,13 @@ export default function ArrayOrderChange({imageList, onCancel}) {
             <div className='mx-2'><MdDelete /></div>
             <div className='text-white'><FaArrowAltCircleRight /></div>
           </div>
-          <div className='grid grid-flow-row grid-cols-3'>
+          <div className='orderWrap grid grid-flow-row grid-cols-3'
+            ref={prame}
+          >
             {imgList.map((value, idx)=>(
-              <div className='md:w-48 md:h-48 lg:w-56 lg:h-56 mx-2 mt-2 rounded-lg overflow-hidden'
+              <div className='md:w-48 md:h-48 lg:w-56 lg:h-56 mx-2 mt-2 rounded-lg overflow-hidden p-1.5'
                 key={idx}
+                id={idx}
               >
                 <img 
                   src={URL.createObjectURL(value)}
