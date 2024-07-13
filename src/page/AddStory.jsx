@@ -45,6 +45,10 @@ export default function AddStory() {
     setChangeOrder(false);
   }
 
+  const handleChangeToResultArr = (arr)=>{
+    setStoryImg(arr);
+  }
+
   useEffect(()=>{
     console.log("현재 img", storyImg);
   }, [storyImg])
@@ -104,7 +108,11 @@ export default function AddStory() {
          value={text}
         />
       </div> 
-      {changeOrder && <ArrayOrderChange imageList={storyImg} onCancel={handleCancelOrder}/>}
+      {changeOrder && <ArrayOrderChange imageList={storyImg} 
+      onComplete={handleChangeToResultArr}
+      onCancel={handleCancelOrder}
+        
+      />}
     </div>
   );
 }

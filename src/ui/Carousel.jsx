@@ -27,12 +27,12 @@ export default function Carousel({imageList, onImgAdd, onImgUpdate, onOrderChang
           'width':'43vh',
           'height':'43vh',
         }}
-        onClick={(e)=>{
+        /*onClick={(e)=>{
           if (deleteButton.current){
             console.log(deleteButton.current.contains(e.target));
             if (!deleteButton.current.contains(e.target)) onOrderChange();
           }
-        }}
+        }}*/
         >
           <img 
           key={idx}
@@ -42,6 +42,7 @@ export default function Carousel({imageList, onImgAdd, onImgUpdate, onOrderChang
             'width':'43vh',
             'height':'43vh',
           }}
+          onClick={onOrderChange}
           />
           <div className='absolute top-2 right-2 w-8 h-8 bg-slate-50 rounded-full 
             flex justify-center items-center
