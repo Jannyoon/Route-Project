@@ -3,6 +3,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { updateUserInfo } from '../api/firebase';
+import useUserInfo from '../hook/useUserInfo';
 
 export default function EditUserName() {
   const [isTyping, setIsTyping] = useState(false);
@@ -10,7 +11,8 @@ export default function EditUserName() {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const navigate = useNavigate();
-  const userInfo = useLocation().state;
+  const {userProfile} = useUserInfo();
+  const userInfo = userProfile.data;
   console.log("받아온 정보", userInfo);
   
   const handleFocusIn = (e)=>{

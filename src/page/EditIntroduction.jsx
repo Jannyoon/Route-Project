@@ -3,15 +3,17 @@ import { IoIosArrowBack } from "react-icons/io";
 import { FaCheck } from "react-icons/fa6";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { updateUserInfo } from '../api/firebase';
+import useUserInfo from '../hook/useUserInfo';
 
 
 export default function EditIntroduction() {
   const navigate = useNavigate();
   const [isAble, setIsAble] = useState(true);
   const [textCount, setTextCount] = useState(0); //타이핑을 칠 때마다 띄워주는 용도
-  const data = useLocation().state;
 
-  const userInfo = data;
+  const {userProfile} = useUserInfo();
+  const userInfo = userProfile.data;
+
   const [text, setText] = useState('');
 
   const realTextRef = useRef();

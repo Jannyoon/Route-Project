@@ -30,9 +30,9 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
 
   const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story};
 
-  const handleChangeNameClick = ()=>{navigate('/me/editName',{state : userInfo})}
-  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction', {state :userInfo})}
-  const handleChangeProfileImage = ()=>{navigate('/me/edit-profile-image', {state : userInfo})}
+  const handleChangeNameClick = ()=>{navigate('/me/editName')}
+  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction')}
+  const handleChangeProfileImage = ()=>{navigate('/me/edit-profile-image')}
   return (
     <div className='w-10/12 md:w-9/12 mt-7 px-1 md:px-4'>
       <div className='w-full'>

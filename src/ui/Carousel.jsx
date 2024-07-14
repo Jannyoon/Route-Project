@@ -22,7 +22,7 @@ export default function Carousel({imageList, onImgAdd, onImgUpdate, onOrderChang
       ref={carousel}
     >
       {imgList.map((v,idx)=>(
-        <div key={idx} id={idx} className='relative'
+        <div key={idx} id={idx} className='relative cursor-pointer'
         style={{
           'width':'43vh',
           'height':'43vh',

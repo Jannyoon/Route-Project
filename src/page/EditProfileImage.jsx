@@ -5,12 +5,15 @@ import { FaCheck } from "react-icons/fa6";
 import { BiImageAdd } from "react-icons/bi";
 import { cloudinaryUpload } from '../api/cloudinary';
 import { updateUserInfo } from '../api/firebase';
+import useUserInfo from '../hook/useUserInfo';
 
 export default function EditProfileImage() {
   const [nowFile, setNowFile] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const userInfo = useLocation().state;
+  const {userProfile} = useUserInfo();
+  const userInfo = userProfile.data;
+  
   const navigate = useNavigate();
   
 

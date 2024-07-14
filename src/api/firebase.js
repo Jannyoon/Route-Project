@@ -185,3 +185,24 @@ export function deleteUserAuth(){
   }).catch(console.error);
 
 }
+
+//프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
+export async function updateUserStory(user, story, storyid){
+  const db = getDatabase();
+  return set(ref(db, `users/${user.userId}/story/${storyid}`), {...story})
+  .catch(()=>{
+    console.log("여기서 에러 발생");
+  });
+}
+
+export async function updateServerStory(story, userData, storyid){
+  const db = getDatabase();
+  return set(ref(db, `Story/${storyid}`), 
+  {...story,
+    userId : userData.userId,
+    userName : userData.nickName,
+    userProfileImg : userData.profile_picture
+  })
+  .then(result =>console.log(result))
+  .catch(console.error)
+}
