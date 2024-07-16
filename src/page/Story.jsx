@@ -43,17 +43,12 @@ export default function Story() {
 
   if (status && status==='error') return <div>Error: {error}</div>;
   return (
-    <div ref={storyRef} className='w-full h-dvh mb-4 bg-red-300'>
+    <div ref={storyRef} className='w-full h-dvh mb-4'>
       {status==='pending' && <div>실행 중...</div>}
-      <div className='w-full h-full  bg-yellow-200'>
+      <div className='w-full h-full'>
         {data && content}{' '}
-        {loadView && (<h3 className='w-full text-center my-2'>Loading...</h3>)}
+        {loadView  && (<h3 className='w-full text-center my-2'>스토리를 불러오는 중...</h3>)}
       </div>
-      {/*hasNextPage && (
-      <div 
-        ref={ref}
-        className='bg-slate-200 w-10 mx-4'
-      >{isFetchingNextPage ? 'Loading...':'Load more'}</div>)*/}
     </div>
   );
 }

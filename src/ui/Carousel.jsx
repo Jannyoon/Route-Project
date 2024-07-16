@@ -26,14 +26,7 @@ export default function Carousel({imageList, onImgAdd, onImgUpdate, onOrderChang
         style={{
           'width':'43vh',
           'height':'43vh',
-        }}
-        /*onClick={(e)=>{
-          if (deleteButton.current){
-            console.log(deleteButton.current.contains(e.target));
-            if (!deleteButton.current.contains(e.target)) onOrderChange();
-          }
-        }}*/
-        >
+        }}>
           <img 
           key={idx}
           src={URL.createObjectURL(v)}
