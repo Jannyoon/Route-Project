@@ -1,6 +1,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
+import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set, child, get, remove } from "firebase/database";
 import { 
   getAuth, 
@@ -10,14 +12,20 @@ import {
   signOut,
   deleteUser
 } from "firebase/auth";
+import { doc, setDoc,} from "firebase/firestore"; 
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID 
+  projectId: process.env.REACT_APP_PROJECT_ID, 
+  databaseURL: process.env.REACT_APP_DATABASE_URL,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 const app = initializeApp(firebaseConfig);
-
+const analytics = getAnalytics(app);
 
 const auth = getAuth();
 // Initialize Firebase
@@ -186,23 +194,42 @@ export function deleteUserAuth(){
 
 }
 
+//firestore에 정보 추가하기
 //프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
 export async function updateUserStory(user, story, storyid){
-  const db = getDatabase();
-  return set(ref(db, `users/${user.userId}/story/${storyid}`), {...story})
-  .catch(()=>{
-    console.log("여기서 에러 발생");
-  });
+  const db = getFirestore(app);
+  const UserRef = doc(db, "ROOTUE PROJECT", "Userstory");
+  setDoc(UserRef, { capital: true }, { merge: true });
+  const timestamp = new Date();
+
+  return await setDoc(doc(db, "ROOTUE PROJECT", "Userstory", user.userId, storyid),
+  {...story,
+  time: timestamp
+  })
+  .then((result) =>{
+    console.log(result);
+    alert(timestamp);
+  })
+  .catch(console.error);
 }
+        
 
 export async function updateServerStory(story, userData, storyid){
-  const db = getDatabase();
-  return set(ref(db, `Story/${storyid}`), 
+  const db = getFirestore(app);
+  const storyRef = doc(db, "ROOTUE PROJECT", "Story");
+  setDoc(storyRef, { capital: true }, { merge: true });
+  const timestamp = new Date();
+
+  return await setDoc(doc(db, "ROOTUE PROJECT", "Story", 'storyID', storyid), 
   {...story,
     userId : userData.userId,
     userName : userData.nickName,
-    userProfileImg : userData.profile_picture
+    userProfileImg : userData.profile_picture,
+    time:timestamp
   })
-  .then(result =>console.log(result))
-  .catch(console.error)
+  .then((result)=>{
+    console.log(result);
+  })
+  .catch(console.error);
+
 }
