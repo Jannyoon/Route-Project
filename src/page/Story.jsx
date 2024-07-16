@@ -6,46 +6,54 @@ import StoryCard from '../component/StoryCard';
 
 export default function Story() {
   const storyRef = useRef();
-  //const { ref, inView } = useInView();
- 
+  const { ref, inView } = useInView();
   const {getItems} = useServerStory();
   const {data, status, error, fetchNextPage, isFetchingNextPage, hasNextPage} = getItems && getItems;
+  const [loadView, setLoadView] = useState(false);
 
   console.log(data);//{pageParams, pages}
   console.log("다음 페이지 존재 여부?", hasNextPage);
 
-  const content = data && data.pages.map((pagedummy)=> pagedummy.map((obj)=>{
+  const content = data && data.pages.map((pagedummy)=> pagedummy.map((obj,idx)=>{
     let realData = obj[1];
     //console.log("realdata", realData);
+    console.log("현재 idx", idx);
+    console.log("obj 길이", obj.length);
+    if (obj.length===(idx+1)) return (<StoryCard innerRef={ref} data={realData}/>)
     return <StoryCard data={realData}/>
   }))
 
 
-  /*
+
   useEffect(()=>{
-    if (inView && hasNextPage){
-      console.log("Fire!")
+    let time;
+    if (inView && hasNextPage){ //로딩 화면을 띄우기 위해서
+      setLoadView(true); 
+      time = setTimeout(()=>{
+        fetchNextPage()
+        setLoadView(false);
+      }, 1000);
     }
-    console.log("inview 출력", inView);
+    return (()=>{time=undefined});
+
     //해당 ref가 보여지는가 안 보여지는가의 여부인가요..?
   }, [inView, hasNextPage]);
-  */
-
+  
 
 
   if (status && status==='error') return <div>Error: {error}</div>;
   return (
-    <div ref={storyRef} className='w-full h-full'>
-      Story
+    <div ref={storyRef} className='w-full h-dvh mb-4 bg-red-300'>
       {status==='pending' && <div>실행 중...</div>}
-      <div>
+      <div className='w-full h-full  bg-yellow-200'>
         {data && content}{' '}
+        {loadView && (<h3 className='w-full text-center my-2'>Loading...</h3>)}
       </div>
-      {hasNextPage && 
-      <button 
+      {/*hasNextPage && (
+      <div 
+        ref={ref}
         className='bg-slate-200 w-10 mx-4'
-        onClick={()=>fetchNextPage()}
-      >{isFetchingNextPage ? 'Loading...':'Load more'}</button>}
+      >{isFetchingNextPage ? 'Loading...':'Load more'}</div>)*/}
     </div>
   );
 }

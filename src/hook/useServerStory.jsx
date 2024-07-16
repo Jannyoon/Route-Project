@@ -20,7 +20,7 @@ export default function useServerStory(){
       console.log({lastPage, allPages});
       console.log("전달받은 querySnapshot", lastPage);      
 
-      if (lastPage.length<3){
+      if (lastPage.length<2){
         return null;
       }
       return lastPage[lastPage.length-1][0];

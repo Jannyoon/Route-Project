@@ -28,7 +28,7 @@ export async function getNextItems({pageParam}){
   const q = query(collection(db, 'ROOTUE PROJECT', 'Story', 'storyID'),
   orderBy('time'),
   startAfter(pageParam || 0), //latestDocs의 존재 여부를 확인한다
-  limit(3));
+  limit(2));
 
   const querySnapshot =  await getDocs(q);
   console.log(querySnapshot);
