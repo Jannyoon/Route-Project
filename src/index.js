@@ -18,6 +18,7 @@ import EditUserName from './page/EditUserName';
 import EditIntroduction from './page/EditIntroduction';
 import EditProfileImage from './page/EditProfileImage';
 import AddStory from './page/AddStory';
+import AddProducts from './page/AddProducts';
 
 
 
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       {path:"me/editName", element:<EditUserName/>},
       {path:"me/edit-introduction", element:<EditIntroduction/>},
       {path:"me/edit-profile-image", element:<EditProfileImage/>},
+      {path:"addProducts", element:<AddProducts/>},
       {path:"products", element:<Products/>},
       {path:"productDetail", element:<ProductDetail/>},
       {path:"me/add-story", element:<AddStory/>}

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { getNextReviews } from '../api/fireStore';
+import { getNextReviews } from '../api/getfireStore';
 import { useInView } from 'react-intersection-observer';
 import useServerStory from '../hook/useServerStory';
 import StoryCard from '../component/StoryCard';

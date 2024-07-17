@@ -231,5 +231,24 @@ export async function updateServerStory(story, userData, storyid){
     console.log(result);
   })
   .catch(console.error);
-
 }
+
+
+/*
+export async function updateUserStory(user, story, storyid){
+  const db = getFirestore(app);
+  const UserRef = doc(db, "ROOTUE PROJECT", "Userstory");
+  setDoc(UserRef, { capital: true }, { merge: true });
+  const timestamp = new Date();
+
+  return await setDoc(doc(db, "ROOTUE PROJECT", "Userstory", user.userId, storyid),
+  {...story,
+  time: timestamp
+  })
+  .then((result) =>{
+    console.log(result);
+    alert(timestamp);
+  })
+  .catch(console.error);
+}*/
+    

@@ -123,7 +123,12 @@ export default function UserPage() {
 
       </div>
       <Profile info={userInfo}/>
-      <div className='w-full flex gap-2 mt-7 md:mt-10'>
+      {isFarmer && 
+      <div className='w-full mx-2 text-center p-3 border text-lg hover:bg-slate-300 cursor-pointer'
+      onClick={()=>navigate('/addProducts')}>
+        상품 등록하기
+      </div>}
+      <div className='w-full flex gap-2 mt-4 md:mt-5'>
         {/*useState로 값을 저장하고, useStory에 저장하는 방식을 취하면 된다. 
         해당 프로젝트에선 Story까지만 구현할 예정이다.*/}
         <div className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100'>Story</div>     

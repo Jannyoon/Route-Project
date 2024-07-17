@@ -7,7 +7,7 @@ import {
   QueryClientProvider,
   useInfiniteQuery
 } from '@tanstack/react-query'
-import { getNextItems } from '../api/fireStore';
+import { getNextItems } from '../api/getfireStore';
 
 
 export default function useServerStory(){
