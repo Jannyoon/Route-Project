@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, startAfter } from "firebase/firestore";
+import { getFirestore, startAfter, where } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set, child, get, remove } from "firebase/database";
@@ -25,9 +25,13 @@ export async function getNextItems({pageParam}){
   console.log("들어오는 인수", pageParam) //{queryKey: Array(3), pageParam: 0, direction: 'forward', meta: undefined}
   const db = getFirestore(app); 
   
-  const q = query(collection(db, 'ROOTUE PROJECT', 'Story', 'storyID'),
-  orderBy('time'),
-  startAfter(pageParam || 0), //latestDocs의 존재 여부를 확인한다
+  const q = pageParam ? query(collection(db, 'ROOTUE PROJECT', 'Story', 'storyID'),
+  orderBy("time", "desc"),
+  startAfter(pageParam), //latestDocs의 존재 여부를 확인한다
+  limit(2))
+  :
+  query(collection(db, 'ROOTUE PROJECT', 'Story', 'storyID'),
+  orderBy("time", "desc"), //latestDocs의 존재 여부를 확인한다
   limit(2));
 
   const querySnapshot =  await getDocs(q);
@@ -41,7 +45,7 @@ export async function getNextItems({pageParam}){
     // doc.data() is never undefined for query doc snapshots
     result.push([doc, doc.data()]); //snapshot과 데이터를 같이 push한다.
   });
-  //console.log("결과...", result);
+  console.log("결과...", result);
 
   //return querySnapshot;
   return result;

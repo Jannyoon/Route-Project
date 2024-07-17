@@ -91,6 +91,7 @@ export default function AddProducts() {
     }
 
     setIsUploading(true);
+
     let imgUrlList = [];
     for (let img of storyImg){
       await cloudinaryUpload(img).then(url => imgUrlList.push(url));
@@ -98,10 +99,7 @@ export default function AddProducts() {
 
     console.log("클라우드 완료", imgUrlList);
     let imgUrlFirst = imgUrlList[0];
-
-
     let productId = uuidv4();
-
     let ServerProduct = {...product, 
       productId, 
       imgList:imgUrlList,
@@ -184,6 +182,7 @@ export default function AddProducts() {
           onChange={handleTextChange}
           className="w-3/5 md:w-2/5 border py-1 px-1 focus:outline-fcs" type="text" name="title"
           value={product.title ?? ''}
+          disabled={isUploading}
           />
         </div>
         <div className='w-full flex justify-center gap-2  mb-2'>
@@ -192,6 +191,7 @@ export default function AddProducts() {
           onChange={handleTextChange}
           value={product.productDetail ?? ''}
           className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="productDetail"
+          disabled={isUploading}
           />
         </div>
 
@@ -202,6 +202,7 @@ export default function AddProducts() {
           value={product.option ?? ''}
           placeholder=',로 구분(ex: S, M, L, 3kg, 5kg)'
           className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="option"
+          disabled={isUploading}
           />
         </div>
         <div className='w-full flex justify-center gap-2  mb-2'>
@@ -210,12 +211,15 @@ export default function AddProducts() {
           placeholder=',로 구분(1개 이상 필수)'
           onChange={handleTextChange}
           value={product.keyword??''}
-          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="keyword"/>
+          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="keyword"
+          disabled={isUploading}
+          />
         </div>
         <div className='w-full flex justify-center gap-2  mb-2'>
           <p className='flex-shrink-0'>종류1</p>
           <select className="mr-2" onChange={handleKindChange}
             value={kind}
+            disabled={isUploading}
           >
             <option value={"과일"}>과일</option>
             <option value={"채소"}>채소</option>
@@ -224,6 +228,7 @@ export default function AddProducts() {
           <p className="ml-2 flex-shrink-0">종류2</p>
           <select onChange={handleSecondKindChange}
             value={secondKind}
+            disabled={isUploading}
           >{
             kind==='과일' ?
             fruitList.map((fruit)=><option value={fruit}>{fruit}</option>)

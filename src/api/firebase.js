@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, serverTimestamp, Timestamp } from "firebase/firestore";
 import { v4 as uuidv4 } from 'uuid';
 import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set, child, get, remove } from "firebase/database";
@@ -225,7 +225,7 @@ export async function updateServerStory(story, userData, storyid){
     userId : userData.userId,
     userName : userData.nickName,
     userProfileImg : userData.profile_picture,
-    time:timestamp
+    time:timestamp,
   })
   .then((result)=>{
     console.log(result);
