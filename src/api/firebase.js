@@ -234,21 +234,32 @@ export async function updateServerStory(story, userData, storyid){
 }
 
 
-/*
-export async function updateUserStory(user, story, storyid){
+export async function addServerProduct(product, productId){
   const db = getFirestore(app);
-  const UserRef = doc(db, "ROOTUE PROJECT", "Userstory");
-  setDoc(UserRef, { capital: true }, { merge: true });
+  const ProductRef = doc(db, "ROOTUE PROJECT", "Products");
+  setDoc(ProductRef, { capital: true }, { merge: true });
   const timestamp = new Date();
 
-  return await setDoc(doc(db, "ROOTUE PROJECT", "Userstory", user.userId, storyid),
-  {...story,
-  time: timestamp
+  return await setDoc(doc(db, "ROOTUE PROJECT", "Products", product.firstKind, productId), 
+  {...product,
+    time:timestamp
   })
-  .then((result) =>{
+  .then((result)=>{
     console.log(result);
-    alert(timestamp);
   })
   .catch(console.error);
-}*/
-    
+}
+
+export async function addUserProduct(product, userId, productId){
+  const db = getFirestore(app);
+  const userProductRef = doc(db, "ROOTUE PROJECT", 'FarmerStory');
+  setDoc(userProductRef, { capital: true }, { merge: true });
+  const timestamp = new Date();
+
+  return await setDoc(doc(db, "ROOTUE PROJECT", 'FarmerStory', userId, productId),
+  {...product,
+    time:timestamp
+  })
+  .then((result)=>{console.log(result);})
+  .catch(console.error);
+}

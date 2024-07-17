@@ -10,7 +10,7 @@ export default function productListData (){
   '초석잠', '콜라비', '파', '파프리카', '허브', '호두', '호박', '셀러리'
     ];
    
-    let etcList = ['상품선택','계란', '고춧가루', '김치', '꿀', '수제청', '쌀/잡곡류'];
+    let etcList = ['상품선택','계란', '고춧가루', '김치', '꿀', '수제청', '쌀/잡곡류', '해산물', '육류'];
   
 
     return {fruitList, vegeList, etcList};
