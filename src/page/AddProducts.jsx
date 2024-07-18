@@ -196,11 +196,11 @@ export default function AddProducts() {
         </div>
 
        <div className='w-full flex justify-center gap-2  mb-2'>
-          <p>옵션</p>
+          <p>옵션:가격(₩ 제외)</p>
           <input 
           onChange={handleTextChange}
           value={product.option ?? ''}
-          placeholder=',로 구분(ex: S, M, L, 3kg, 5kg)'
+          placeholder=',로 구분(ex: S:10000, M:30000, 3kg:15000)'
           className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="option"
           disabled={isUploading}
           />
