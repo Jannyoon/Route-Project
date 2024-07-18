@@ -41,9 +41,7 @@ export default function UserStory() {
   const content = data && data.pages.map((pagedummy)=> pagedummy.map((obj, idx)=>{
     let realData = obj[1];
     const {contents, imageList, storyId, time} = realData;
-
     const sendData ={contents, id:storyId, imgList:imageList, time, userId, userName:nickName, userProfileImg:profile_picture};
-    console.log("보낼 데이터 확인용", sendData);
     if (obj.length===(idx+1)) return (
       <div onClick={()=>{
         navigate(`/mystory/:${storyId}`, {state:sendData})

@@ -34,7 +34,7 @@ export async function getNextItems({pageParam}){
   const querySnapshot =  await getDocs(q);
   console.log(querySnapshot);
 
-  //각각의 doc은 QueryDocumentSnapshot이란 이름으로 저장되어 있다.
+  //각각의 doc은 Que:ryDocumentSnapshot이란 이름으로 저장되어 있다.
   //실질적으로 저장했던 데이터는 doc.data() 속에 들어있다.
   let result = [];
   querySnapshot.forEach((doc) => {

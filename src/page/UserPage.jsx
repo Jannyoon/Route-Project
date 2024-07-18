@@ -10,6 +10,7 @@ import { IoExitOutline } from "react-icons/io5";
 import { useQueryClient } from '@tanstack/react-query'
 import { getAuth } from 'firebase/auth';
 import ChangingAccount from '../component/ChangingAccount';
+import MyProducts from '../component/MyProducts';
 
 export default function UserPage() {
   const {user, LogIn, LogOut} = useAuthContext();
@@ -27,6 +28,8 @@ export default function UserPage() {
   const [view, setView] = useState(false);
   const [farmerAccount, setFarmerAccount] = useState(false);//호출 해야 하는가
   const [removeAccount, setRemoveAccount] = useState(false)
+  const [bottomStory, setBottomStory] = useState(true);
+
   const additionalView = useRef();
   const threePoint = useRef();
   const queryClient = useQueryClient();
@@ -57,7 +60,10 @@ export default function UserPage() {
   }
 
   const handleView = ()=>setView(prev => !prev);
-  const handleFarmerSet = ()=>setFarmerAccount(prev => !prev);
+  const handleFarmerSet = ()=>{
+    setFarmerAccount(prev => !prev);
+    setBottomStory(true);
+  }
   const handleRemoveAccountSet = ()=>setRemoveAccount(prev => !prev);
 
   //ref 영역 밖을 선택했을 때 Element가 보이지 않게...
@@ -131,10 +137,19 @@ export default function UserPage() {
       <div className='w-full flex gap-2 mt-4 md:mt-5'>
         {/*useState로 값을 저장하고, useStory에 저장하는 방식을 취하면 된다. 
         해당 프로젝트에선 Story까지만 구현할 예정이다.*/}
-        <div className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100'>Story</div>     
-        <div className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100'>리뷰</div>   
+        <div 
+          className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100' 
+          onClick={()=>setBottomStory(true)}
+          style={bottomStory ? {'backgroundColor':'rgb(16 185 129/1)'}:{}}
+          >Story</div>     
+        {isFarmer && <div 
+          className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100' 
+          onClick={()=>setBottomStory(false)}
+          style={!bottomStory ? {'backgroundColor':'rgb(16 185 129/1)'}:{}}
+          >내 상품</div>}   
       </div>
-      <UserStory />
+      {bottomStory && <UserStory />}
+      {isFarmer && !bottomStory && <MyProducts/>}
       {(farmerAccount || removeAccount) && (<ChangingAccount onCheck={{handleFarmerSet, handleView, handleRemoveAccountSet}} 
         info={userInfo} 
         settingFarmer={farmerAccount} 
