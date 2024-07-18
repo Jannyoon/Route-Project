@@ -19,6 +19,7 @@ import EditIntroduction from './page/EditIntroduction';
 import EditProfileImage from './page/EditProfileImage';
 import AddStory from './page/AddStory';
 import AddProducts from './page/AddProducts';
+import OneStoryPage from './page/OneStoryPage';
 
 
 
@@ -38,7 +39,8 @@ const router = createBrowserRouter([
       {path:"addProducts", element:<AddProducts/>},
       {path:"products", element:<Products/>},
       {path:"productDetail", element:<ProductDetail/>},
-      {path:"me/add-story", element:<AddStory/>}
+      {path:"me/add-story", element:<AddStory/>},
+      {path:"mystory/:storyid", element:<OneStoryPage/>}
     ]
   },
 ]);

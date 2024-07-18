@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import StoryImgItem from '../ui/StoryImgItem';
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
@@ -8,6 +8,7 @@ export default function StoryCarousel({storyImgs}) {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [startX, setStartX] = useState();
   const [isDrag, setIsDrag] = useState(false);
+
   const container = useRef();
   let TotalLen = storyImgs.length; //전체 이미지 길이
   let lastIdx = storyImgs.length-1;
@@ -15,7 +16,21 @@ export default function StoryCarousel({storyImgs}) {
 
   let SLIDEWIDTH = container.current && container.current.offsetWidth;
   let SLIDEHEIGHT = container.current && container.current.offsetHeight;
-  //console.log(SLIDEWIDTH);
+
+  const [swidth, setSwidth] = useState();
+  const [sHeight, setSHeight] = useState();
+  useEffect(()=>{
+    console.log(container.current);
+
+    SLIDEWIDTH = container.current.offsetWidth;
+    SLIDEHEIGHT = container.current.offsetHeight;
+    setSwidth(prev => SLIDEWIDTH);
+    setSHeight(prev => SLIDEHEIGHT);
+  
+  }, [swidth, sHeight]);
+
+  console.log(SLIDEWIDTH);
+  console.log("현재 인덱스", currentIdx);
 
   const handleDragClick = (e)=>{
     e.preventDefault();

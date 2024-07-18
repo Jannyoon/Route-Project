@@ -1,8 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, startAfter, where } from "firebase/firestore";
-import { v4 as uuidv4 } from 'uuid';
+import { getFirestore, startAfter} from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase, ref, set, child, get, remove } from "firebase/database";
 
 import {collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit} from "firebase/firestore"; 
 
@@ -18,7 +16,6 @@ const firebaseConfig = {
 };
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-
 
 //하위 컬렉션의 모든 문서 가져오기
 export async function getNextItems({pageParam}){
@@ -50,3 +47,4 @@ export async function getNextItems({pageParam}){
   //return querySnapshot;
   return result;
 }
+

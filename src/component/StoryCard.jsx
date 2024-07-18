@@ -1,5 +1,4 @@
 import React from 'react';
-import { useInView } from 'react-intersection-observer';
 import StoryCarousel from './StoryCarousel';
 
 export default function StoryCard(
