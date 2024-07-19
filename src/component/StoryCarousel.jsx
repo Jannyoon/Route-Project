@@ -99,8 +99,7 @@ export default function StoryCarousel({storyImgs}) {
         }}
         onClick={handleRightClick}
       ><IoIosArrowDroprightCircle /></div>
-      {lastIdx>0 && <IdxBtn arr={IdxArr} currentIdx={currentIdx} containerWidth={sWidth}/>}
-      <div className='w-full h-3'></div>
+      {lastIdx>0 && <IdxBtn arr={IdxArr} currentIdx={currentIdx} containerWidth={sWidth} containerHeight={sHeight}/>}
     </div>
   );
 }
