@@ -1,11 +1,11 @@
 import React from 'react';
 
 export default function IdxBtn({arr, currentIdx, containerWidth,  containerHeight}) {
-  
+
   return (
     <div className='absolute w-1/3 flex justify-center'
       style={{'left':`${containerWidth/2-(containerWidth/6)}px`,
-      'top':`${containerHeight*0.94}px`,
+      'bottom':`${containerHeight*0.1}px`,
     }}
     >
       {arr.map((v,idx) => (

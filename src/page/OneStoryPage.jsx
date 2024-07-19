@@ -4,6 +4,7 @@ import StoryCardContents from '../component/StoryCardContents';
 
 export default function OneStoryPage() {
   const state = useLocation().state;
+  let vh = window.innerHeight*0.01;
 
   if (state) console.log("전달된 데이터", state)
   if (!state) return (
@@ -13,7 +14,9 @@ export default function OneStoryPage() {
   );
 
   return (
-    <div className='w-full h-dvh mb-4 flex justify-center'>
+    <div className='w-full flex justify-center'
+      style={{'height' : `${90*vh}px`}}
+    >
       <StoryCardContents data={state}/>
     </div>
   )

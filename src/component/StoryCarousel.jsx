@@ -65,7 +65,7 @@ export default function StoryCarousel({storyImgs}) {
   return (
     <div 
       ref={container}
-      className='relative w-full h-4/6 md:w-full md:h-1/2 lg:w-8/12 lg:h-5/6 overflow-hidden'>
+      className='relative w-full h-4/6 md:w-full md:h-1/2 lg:w-8/12 lg:h-5/6 overflow-hidden '>
       {/*실제 움직이는 영역*/}
       <div className='flex' 
         onMouseDown={handleDragClick}
