@@ -14,20 +14,21 @@ export default function StoryCarousel({storyImgs}) {
   let lastIdx = storyImgs.length-1;
   let IdxArr = Array.from({length:TotalLen},()=>'');
 
+  /*
   let SLIDEWIDTH = container.current && container.current.offsetWidth;
   let SLIDEHEIGHT = container.current && container.current.offsetHeight;
+  */
 
   const [sWidth, setSwidth] = useState();
   const [sHeight, setSHeight] = useState();
+
   useEffect(()=>{
-    SLIDEWIDTH = container.current.offsetWidth;
-    SLIDEHEIGHT = container.current.offsetHeight;
+    let SLIDEWIDTH = container.current && container.current.offsetWidth;
+    let SLIDEHEIGHT = container.current && container.current.offsetHeight;
     setSwidth(SLIDEWIDTH);
     setSHeight(SLIDEHEIGHT);
-  
   }, [sWidth, sHeight]);
 
-  console.log(SLIDEWIDTH);
   console.log("현재 인덱스", currentIdx);
 
   const handleDragClick = (e)=>{
