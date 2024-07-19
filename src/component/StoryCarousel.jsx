@@ -25,7 +25,7 @@ export default function StoryCarousel({storyImgs}) {
     SLIDEHEIGHT = container.current.offsetHeight;
     setSwidth(SLIDEWIDTH);
     setSHeight(SLIDEHEIGHT);
-  }, [SLIDEWIDTH, SLIDEHEIGHT]);
+  });
 
   console.log("현재 인덱스", currentIdx);
 
