@@ -17,17 +17,15 @@ export default function StoryCarousel({storyImgs}) {
   let SLIDEWIDTH = container.current && container.current.offsetWidth;
   let SLIDEHEIGHT = container.current && container.current.offsetHeight;
 
-  const [swidth, setSwidth] = useState();
+  const [sWidth, setSwidth] = useState();
   const [sHeight, setSHeight] = useState();
   useEffect(()=>{
-    console.log(container.current);
-
     SLIDEWIDTH = container.current.offsetWidth;
     SLIDEHEIGHT = container.current.offsetHeight;
-    setSwidth(prev => SLIDEWIDTH);
-    setSHeight(prev => SLIDEHEIGHT);
+    setSwidth(SLIDEWIDTH);
+    setSHeight(SLIDEHEIGHT);
   
-  }, [swidth, sHeight]);
+  }, [sWidth, sHeight]);
 
   console.log(SLIDEWIDTH);
   console.log("현재 인덱스", currentIdx);
@@ -75,17 +73,17 @@ export default function StoryCarousel({storyImgs}) {
         onMouseUp={handleDragEnd}
         onMouseLeave={handleDragEnd}
         style={{
-          'transform': `translateX(${-currentIdx*SLIDEWIDTH}px)`,
+          'transform': `translateX(${-currentIdx*sWidth}px)`,
           'transition' : 'transform 200ms ease'
         }}
       >   
       {storyImgs.map(url => (
-        <StoryImgItem src={url} width={SLIDEWIDTH} height={SLIDEHEIGHT}/>
+        <StoryImgItem src={url} width={sWidth} height={sHeight}/>
       ))}
       </div>
       <div className='absolute left-0.5 text-slate-900 text-5xl'
         style={{
-          'top':`${(SLIDEHEIGHT/2)-24}px`,
+          'top':`${(sHeight/2)-24}px`,
           'display': lastIdx===0 ? 'none' : 'block',
           'cursor': currentIdx===0 ? 'default' : 'pointer',
           'color' : currentIdx===0 ? 'rgb(15 23 42 / 1)': 'rgb(71 85 105 / 1)' 
@@ -94,14 +92,15 @@ export default function StoryCarousel({storyImgs}) {
       ><IoIosArrowDropleftCircle /></div>
       <div className='absolute right-0.5 text-5xl hover:cursor-pointer'
         style={{
-          'top':`${(SLIDEHEIGHT/2)-24}px`,
+          'top':`${(sHeight/2)-24}px`,
           'display': lastIdx===0 ? 'none' : 'block', 
           'cursor': currentIdx===lastIdx ? 'default' : 'pointer',
           'color' : currentIdx===lastIdx ? 'rgb(15 23 42 / 1)': 'rgb(71 85 105 / 1)'
         }}
         onClick={handleRightClick}
       ><IoIosArrowDroprightCircle /></div>
-      {lastIdx>0 && <IdxBtn arr={IdxArr} currentIdx={currentIdx} containerWidth={SLIDEWIDTH}/>}
+      {lastIdx>0 && <IdxBtn arr={IdxArr} currentIdx={currentIdx} containerWidth={sWidth}/>}
+      <div className='w-full h-3'></div>
     </div>
   );
 }
