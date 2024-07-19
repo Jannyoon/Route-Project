@@ -14,11 +14,6 @@ export default function StoryCarousel({storyImgs}) {
   let lastIdx = storyImgs.length-1;
   let IdxArr = Array.from({length:TotalLen},()=>'');
 
-  /*
-  let SLIDEWIDTH = container.current && container.current.offsetWidth;
-  let SLIDEHEIGHT = container.current && container.current.offsetHeight;
-  */
-
   const [sWidth, setSwidth] = useState();
   const [sHeight, setSHeight] = useState();
 
