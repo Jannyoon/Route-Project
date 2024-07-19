@@ -17,12 +17,15 @@ export default function StoryCarousel({storyImgs}) {
   const [sWidth, setSwidth] = useState();
   const [sHeight, setSHeight] = useState();
 
+  let SLIDEWIDTH = container.current && container.current.offsetWidth;
+  let SLIDEHEIGHT = container.current && container.current.offsetHeight;
+
   useEffect(()=>{
-    let SLIDEWIDTH = container.current && container.current.offsetWidth;
-    let SLIDEHEIGHT = container.current && container.current.offsetHeight;
+    SLIDEWIDTH = container.current.offsetWidth;
+    SLIDEHEIGHT = container.current.offsetHeight;
     setSwidth(SLIDEWIDTH);
     setSHeight(SLIDEHEIGHT);
-  }, [sWidth, sHeight]);
+  }, [SLIDEWIDTH, SLIDEHEIGHT]);
 
   console.log("현재 인덱스", currentIdx);
 
