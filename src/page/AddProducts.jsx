@@ -175,47 +175,8 @@ export default function AddProducts() {
       </div>
       {product.keyword && product.keyword.length>0 && 
       <KeyWordsView str={product.keyword}/>}
-      <div className='w-10/12 flex flex-col items-center'>
-        <div className='w-full mt-5 flex justify-center gap-2 mb-2'>
-          <p>상품명</p>
-          <input 
-          onChange={handleTextChange}
-          className="w-3/5 md:w-2/5 border py-1 px-1 focus:outline-fcs" type="text" name="title"
-          value={product.title ?? ''}
-          disabled={isUploading}
-          />
-        </div>
-        <div className='w-full flex justify-center gap-2  mb-2'>
-          <p>상품설명</p>
-          <input 
-          onChange={handleTextChange}
-          value={product.productDetail ?? ''}
-          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="productDetail"
-          disabled={isUploading}
-          />
-        </div>
-
-       <div className='w-full flex justify-center gap-2  mb-2'>
-          <p>옵션:가격(₩ 제외)</p>
-          <input 
-          onChange={handleTextChange}
-          value={product.option ?? ''}
-          placeholder=',로 구분(ex: S:10000, M:30000, 3kg:15000)'
-          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="option"
-          disabled={isUploading}
-          />
-        </div>
-        <div className='w-full flex justify-center gap-2  mb-2'>
-          <p>키워드</p>
-          <input 
-          placeholder=',로 구분(1개 이상 필수)'
-          onChange={handleTextChange}
-          value={product.keyword??''}
-          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="keyword"
-          disabled={isUploading}
-          />
-        </div>
-        <div className='w-full flex justify-center gap-2  mb-2'>
+      <div className='w-10/12 flex flex-col items-center mt-6 mb-10'>
+        <div className='w-full flex justify-center gap-2'>
           <p className='flex-shrink-0'>종류1</p>
           <select className="mr-2" onChange={handleKindChange}
             value={kind}
@@ -240,10 +201,49 @@ export default function AddProducts() {
             )
             
             }
-          </select>
+            </select>
         </div>
+        <div className='w-full mt-3 flex justify-center gap-2 mb-2'>
+          <p>상품명</p>
+          <input 
+          onChange={handleTextChange}
+          className="w-3/5 md:w-2/5 border py-1 px-1 focus:outline-fcs" type="text" name="title"
+          value={product.title ?? ''}
+          disabled={isUploading}
+          />
+        </div>
+        <div className='w-full flex justify-center gap-2  mb-2'>
+          <p>상품설명</p>
+          <input 
+          onChange={handleTextChange}
+          value={product.productDetail ?? ''}
+          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="productDetail"
+          disabled={isUploading}
+          />
+        </div>
+        <div className='w-full flex justify-center gap-2  mb-2'>
+          <p>키워드</p>
+          <input 
+          placeholder=',로 구분(1개 이상)'
+          onChange={handleTextChange}
+          value={product.keyword??''}
+          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="keyword"
+          disabled={isUploading}
+          />
+        </div>
+        <div className='w-full flex justify-center mb-1 gap-2'>
+          <p>옵션:가격</p>
+          <input 
+          onChange={handleTextChange}
+          value={product.option ?? ''}
+          placeholder=',로 구분(1개 이상)'
+          className="w-3/5 md:w-2/5 border py-1 px-3 focus:outline-fcs" type="text" name="option"
+          disabled={isUploading}
+          />
+        </div>          
+        <div className='text-xs md:text-sm px-1 bg-slate-100'>{`S:10000, M:30000, 3kg:15000(₩ 제외해서 입력)`}</div>
         
-    </div>
+      </div>
     </div>
   );
 }
