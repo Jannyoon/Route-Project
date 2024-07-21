@@ -3,6 +3,11 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx,tsx}"],
   theme: {
     extend: {
+      backgroundImage : {
+        'banner1' : 'url("./ui/bannerImg/b1.JPG")',
+        'banner2' : 'url("./ui/bannerImg/b2.JPG")',
+        'banner3' : 'url("./ui/bannerImg/b3.JPG")',
+      },
       colors : {
         'brand' : '#10B981',
         'fcs' : '#fdba74',

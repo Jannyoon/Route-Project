@@ -1,15 +1,18 @@
-import React from 'react';
+import React, {Component} from 'react';
+import Slider from "react-slick";
 import Button from '../ui/Button';
 import { LogOut } from '../api/firebase';
 import { useAuthContext } from '../context/useAuthContext';
 import { getAllProducts } from '../api/getfireStore';
 import useServerProducts from '../hook/useServerProducts';
+import styled from 'styled-components';
+import Banner from '../ui/Banner';
 
 export default function Home() {
   const {user} = useAuthContext();
-
   const {getServerProducts} = useServerProducts();
   const {data, status, error, fetchNextPage, isFetchingNextPage, hasNextPage} = getServerProducts;
+
 
 
   const content = data &&  data.pages.map((pagedummy)=> pagedummy.map((obj,idx)=>{
@@ -22,9 +25,9 @@ export default function Home() {
 
 
   return (
-    <div>
+    <div className='w-full h-svh bg-yellow-50 flex flex-col items-center'>
     
-      <div>배너</div>
+      <Banner/>
       <div>oo님 반가워요!</div>
       <div>상품 선택 영역</div>
       <section>
