@@ -239,6 +239,14 @@ export async function addServerProduct(product, productId){
   const ProductRef = doc(db, "ROOTUE PROJECT", "Products");
   setDoc(ProductRef, { capital: true }, { merge: true });
   const timestamp = new Date();
+  await setDoc(doc(db, "ROOTUE PROJECT", "AllProducts", "productId", productId),
+  {...product,
+    time:timestamp
+  })
+  .then((result)=>{
+    console.log(result);
+  })
+  .catch(console.error);
 
   return await setDoc(doc(db, "ROOTUE PROJECT", "Products", product.firstKind, productId), 
   {...product,

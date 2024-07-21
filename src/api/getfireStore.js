@@ -2,7 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, startAfter} from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-import {collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit} from "firebase/firestore"; 
+import {collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit, where, and, or} from "firebase/firestore"; 
+import { addServerProduct } from "./firebase";
+
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -48,3 +50,30 @@ export async function getNextItems({pageParam}){
   return result;
 }
 
+export async function getAllProducts({pageParam}){
+  const db = getFirestore(app);
+  
+  const q = pageParam ? query(collection(db, 'ROOTUE PROJECT', 'AllProducts', 'productId'),
+  orderBy("time", "desc"),
+  startAfter(pageParam), //latestDocs의 존재 여부를 확인한다
+  limit(12))
+  :
+  query(collection(db, 'ROOTUE PROJECT', 'AllProducts', 'productId'),
+  orderBy("time", "desc"), //latestDocs의 존재 여부를 확인한다
+  limit(12));
+
+  const querySnapshot =  await getDocs(q);
+  console.log(querySnapshot);
+
+  let result = [];
+  querySnapshot.forEach((doc) => {
+    //console.log(doc); => QueryDocumentSnapshot를 출력한다
+    // doc.data() is never undefined for query doc snapshots
+    result.push([doc, doc.data()]); //snapshot과 데이터를 같이 push한다.
+  });
+  console.log("결과...", result);
+
+  //return querySnapshot;
+  return result;
+
+}
