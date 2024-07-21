@@ -6,8 +6,8 @@ import StoryCard from '../component/StoryCard';
 
 export default function Story() {
   const { ref, inView } = useInView();
-  const {getItems} = useServerStory();
-  const {data, status, error, fetchNextPage, isFetchingNextPage, hasNextPage} = getItems;
+  const { getAllStoryItems} = useServerStory();
+  const {data, status, error, fetchNextPage, isFetchingNextPage, hasNextPage} =  getAllStoryItems;
   const [loadView, setLoadView] = useState(false);
 
   //console.log(data);//{pageParams, pages}

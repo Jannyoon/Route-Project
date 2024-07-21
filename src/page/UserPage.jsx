@@ -7,24 +7,21 @@ import Profile from '../component/Profile';
 import UserStory from '../component/UserStory';
 import { useNavigate } from 'react-router-dom';
 import { IoExitOutline } from "react-icons/io5";
-import { useQueryClient } from '@tanstack/react-query'
-import { getAuth } from 'firebase/auth';
 import ChangingAccount from '../component/ChangingAccount';
 import MyProducts from '../component/MyProducts';
 
 export default function UserPage() {
-  const {user, LogIn, LogOut} = useAuthContext();
-
-  const auth = getAuth();
+  const {user, LogOut} = useAuthContext();
   const navigate = useNavigate();
-  const [logUser, setLogUser] = useState(true);
+
   console.log("현재 유저", user);
+  
   if (!user){
     alert("회원만 이용 가능합니다.");
     navigate('/', {replace:true});
   }
 
-  const {userProfile, logOutUser} = useUserInfo();
+  const {userProfile} = useUserInfo();
   const [view, setView] = useState(false);
   const [farmerAccount, setFarmerAccount] = useState(false);//호출 해야 하는가
   const [removeAccount, setRemoveAccount] = useState(false)
@@ -32,7 +29,7 @@ export default function UserPage() {
 
   const additionalView = useRef();
   const threePoint = useRef();
-  const queryClient = useQueryClient();
+
 
   let [email, isFarmer, nickName, profile_picture, userId, introduction, story] = ['','','','','','',''];
   const getProfile = userProfile.data;
@@ -79,8 +76,7 @@ export default function UserPage() {
   }, [view])
 
 
-
-  if (!logUser || !user){
+  if (!user){
     return (
       <div>로그인 후 이용</div>
     )

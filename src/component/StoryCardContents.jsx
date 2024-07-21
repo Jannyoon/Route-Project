@@ -18,7 +18,11 @@ export default function StoryCardContents({innerRef, data}) {
         <button className='text-sm px-2 bg-brand rounded-md ml-2'>팔로우</button>
       </div>
       <div className='text-sm md:text-xs px-3 py-1'>이미지 개수 체크용: {imgList.length}</div>
-      <div className='text-sm md:text-xs px-3 py-1 overflow-y-auto'>{contents}</div>
+      <div className='text-sm md:text-xs px-3 py-1 overflow-y-auto'
+        onTouchStart={e => e.stopPropagation()}
+        onTouchMove={e => e.stopPropagation()}
+        onTouchEnd={e => e.stopPropagation()}
+      >{contents}</div>
     </div>
   </div>
   );

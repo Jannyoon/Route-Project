@@ -29,7 +29,7 @@ export default function useServerStory(){
   let userId = user && user.uid;
 
 
-  const getItems = useInfiniteQuery({
+  const getAllStoryItems = useInfiniteQuery({
     queryKey : ['ROOTUE PROJECT', 'Story', 'storyID'],
     queryFn : getNextItems,
     initialPageParam : 0,
@@ -52,7 +52,7 @@ export default function useServerStory(){
       console.log({lastPage, allPages});
       console.log("전달받은 querySnapshot", lastPage);
 
-      if (lastPage.length<6) return null;
+      if (lastPage.length<8) return null;
       return lastPage[lastPage.length-1][0];
     }
   })
@@ -62,11 +62,11 @@ export default function useServerStory(){
     const q = pageParam ? query(collection(db, "ROOTUE PROJECT","Userstory", userId),
     orderBy("time"),
     startAfter(pageParam), //latestDocs의 존재 여부를 확인한다
-    limit(6))
+    limit(8))
     :
     query(collection(db, "ROOTUE PROJECT","Userstory", userId),
     orderBy("time"), //latestDocs의 존재 여부를 확인한다
-    limit(6));
+    limit(8));
 
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot);
@@ -86,5 +86,5 @@ export default function useServerStory(){
 
 }
 
-  return {getItems, getUserStoryItems}
+  return {getAllStoryItems, getUserStoryItems}
 }
