@@ -20,6 +20,9 @@ import EditProfileImage from './page/EditProfileImage';
 import AddStory from './page/AddStory';
 import AddProducts from './page/AddProducts';
 import OneStoryPage from './page/OneStoryPage';
+import EventBanner1 from './page/event/EventBanner1';
+import EventBanner2 from './page/event/EventBanner2';
+import EventBanner3 from './page/event/EventBanner3';
 
 
 
@@ -30,6 +33,9 @@ const router = createBrowserRouter([
     element: <App/>, //Navbar가 위치 해 있음
     children : [
       {index:true, element:<Home/>},
+      {path:"event/banner1", element:<EventBanner1/>},
+      {path:"event/banner2", element:<EventBanner2/>},
+      {path:"event/banner3", element:<EventBanner3/>},
       {path:"story", element:<Story/>},
       {path:'join', element:<Login/>},
       {path:"me", element:<UserPage/>},
@@ -40,7 +46,7 @@ const router = createBrowserRouter([
       {path:"products", element:<Products/>},
       {path:"productDetail", element:<ProductDetail/>},
       {path:"me/add-story", element:<AddStory/>},
-      {path:"mystory/:storyid", element:<OneStoryPage/>}
+      {path:"mystory/:storyid", element:<OneStoryPage/>},
     ]
   },
 ]);
