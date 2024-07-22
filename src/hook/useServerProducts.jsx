@@ -7,7 +7,7 @@ import {
   QueryClientProvider,
   useInfiniteQuery
 } from '@tanstack/react-query'
-import { getAllProducts } from '../api/getfireStore';
+import { getAllProducts, getBestProducts } from '../api/getfireStore';
 import { initializeApp } from "firebase/app";
 import { collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit,  getFirestore, startAfter} from "firebase/firestore"; 
 import { useAuthContext } from '../context/useAuthContext';
@@ -33,8 +33,8 @@ export default function useServerProducts(){
     queryFn : getAllProducts,
     initialPageParam : 0,
     getNextPageParam : (lastPage, allPages)=>{
-      console.log({lastPage, allPages});
-      console.log("전달받은 querySnapshot", lastPage);      
+      //console.log({lastPage, allPages});
+      //console.log("전달받은 querySnapshot", lastPage);      
 
       if (lastPage.length<12){
         return null;

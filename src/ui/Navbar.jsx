@@ -23,7 +23,7 @@ export default function Navbar() {
     <div className='flex justify-between mt-3'>
       <div className='flex justify-center items-end'>
         <div 
-          className='text-brand font-bold text-3xl md:text-4xl text-center mr-1 md:mr-5 hover:cursor-pointer'
+          className='text-brand font-bold text-xl md:text-4xl text-center mr-1 md:mr-5 hover:cursor-pointer'
           onClick={handleHomeClick}
         >roout</div>
         <div 
@@ -33,9 +33,9 @@ export default function Navbar() {
       </div>
       <div className='flex justify-center items-center'>
         <input 
-          className='w-24 h-6 mr-1.5 md:w-60 bg-transparent border-b-2 border-brand focus:outline-none focus:border-fcs p-2' placeholder='검색' 
+          className='w-20 h-6 mr-1 md:w-60 bg-transparent border-b-2 border-brand focus:outline-none focus:border-fcs p-2' placeholder='검색' 
         />
-        {user && (<div className='mx-2 md:mx-3 hover:cursor-pointer text-2xl md:text-3xl text-center hover:text-brand'
+        {user && (<div className='mx-1 md:mx-3 hover:cursor-pointer text-2xl md:text-3xl text-center hover:text-brand'
           onClick={handleAddStory}
         >
           <TbSquarePlus2 />

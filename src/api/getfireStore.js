@@ -63,7 +63,6 @@ export async function getAllProducts({pageParam}){
   limit(12));
 
   const querySnapshot =  await getDocs(q);
-  console.log(querySnapshot);
 
   let result = [];
   querySnapshot.forEach((doc) => {
@@ -71,9 +70,27 @@ export async function getAllProducts({pageParam}){
     // doc.data() is never undefined for query doc snapshots
     result.push([doc, doc.data()]); //snapshot과 데이터를 같이 push한다.
   });
-  console.log("결과...", result);
 
   //return querySnapshot;
   return result;
+}
 
+
+
+export async function getBestProducts(){
+  const db = getFirestore(app);
+  
+  const favoriteq =  query(collection(db, 'ROOTUE PROJECT', 'AllProducts', 'productId'),
+  orderBy("favorite", "desc"), //latestDocs의 존재 여부를 확인한다
+  limit(10));
+
+  const querySnapshot =  await getDocs(favoriteq);
+  let result = [];
+  querySnapshot.forEach((doc) => {
+    result.push(doc.data()); //snapshot과 데이터를 같이 push한다.
+  });
+  console.log("베스트 결과...", result);
+
+  //return querySnapshot;
+  return result;
 }
