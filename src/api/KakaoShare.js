@@ -1,6 +1,6 @@
 export default function KakaoShare(product) {
   const {Kakao} = window;
-  const realUrl = window.location.href;
+  const realUrl = "https://jann-rooute-project.netlify.app/"
   console.log("전달받은 product",product);
   const {imgFirst, title, option} = product;
   //"option":"30미dddddddddddddddddddddd, 50미, 60미",

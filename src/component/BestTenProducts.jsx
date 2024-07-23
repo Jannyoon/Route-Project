@@ -47,7 +47,7 @@ export default function BestTenProducts() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4.5,
+    slidesToShow: 4,
     slidesToScroll: 3,
     prevArrow: <PrevArrow/>,
     nextArrow: <NextArrow/>,

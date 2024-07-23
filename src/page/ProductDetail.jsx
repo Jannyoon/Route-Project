@@ -14,13 +14,9 @@ export default function ProductDetail() {
   const [viewDetail, setViewDetail] = useState(false);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const [product, setProduct] = useState(useLocation().state);
+  const product = useLocation().state;
+  const [subProduct, setSubProduct] = useState();
   
-  if (!product){
-    
-
-  }
-
   const {buy, 
     farmerId, 
     farmerImg, 
@@ -46,6 +42,9 @@ export default function ProductDetail() {
 
 
   const handleViewClick = ()=>setViewDetail(prev => !prev);
+  if (!product){
+    return (<div>subProduct 출력</div>);
+  }
   //console.log(product);
   return (
     <div className='w-full flex flex-col items-center'>

@@ -14,7 +14,7 @@ export default function FarmerInfo({farmer :{farmerId,farmerImg,farmerName}}) {
     farmerId && getFarmerProducts(farmerId)
     .then((result)=>setProducts(result))
     .catch(console.error);
-  },[farmerId]);
+  },[]);
 
   console.log("물품 확인", products);
 
@@ -22,7 +22,7 @@ export default function FarmerInfo({farmer :{farmerId,farmerImg,farmerName}}) {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3.8,
+    slidesToShow: 4,
     slidesToScroll: 3,
     initialSlide: 1,
     prevArrow: <PrevArrow/>,
