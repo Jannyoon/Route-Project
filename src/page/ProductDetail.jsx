@@ -12,16 +12,14 @@ import { getOneProduct } from '../api/getfireStore';
 export default function ProductDetail() {
   const {user} = useAuthContext();
   const [viewDetail, setViewDetail] = useState(false);
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState(useLocation().state);
+  
+  if (!product){
+    
 
-  useEffect(()=>{
-    let nowUrl = window.location.pathname;
-    let productId = nowUrl.slice(9,);
-    getOneProduct(productId)
-    .then((result)=>setProduct(result));
-  },[])
+  }
 
   const {buy, 
     farmerId, 
@@ -29,15 +27,17 @@ export default function ProductDetail() {
     farmerName, 
     favorite, 
     firstKind, 
-    imgList, 
+    imgList,
+    imgFirst, 
     keyword, 
     option, 
     productDetail, 
     productId,
     secondKind, 
     title} = product;
+    console.log("현재 detail 페이지의", product);
 
-  const titlePrice = option ? option.split(",")[0].split(":") : 0;
+  //const titlePrice = option ? option.split(",")[0].split(":") : 0;
   const optionPrice = option ? option.split(",").map((v)=>v.trim().split(":")): [""];
   console.log("옵션별로..", optionPrice);
   const [nowOption, setNowOption] = useState(optionPrice[0]); //["optionname", "${priceNum}"]
@@ -69,7 +69,7 @@ export default function ProductDetail() {
         <KeyWordsView str={keyword}/>
         <div className='w-full h-full flex justify-between p-2 text-xl md:text-2xl '>
           <div className='grow-0  font-semibold overflow-hidden whitespace-nowrap text-ellipsis'>{title}</div>
-          <div className='shrink-0'>{titlePrice[1]??3000} ₩</div>
+          <div className='shrink-0'>{optionPrice[0][1]??3000} ₩</div>
         </div>
         {!viewDetail && <div className='w-full p-2 text-center border cursor-pointer' onClick={handleViewClick}>상품 상세 정보 보기</div>}
         {viewDetail &&

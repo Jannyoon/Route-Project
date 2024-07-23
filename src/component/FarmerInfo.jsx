@@ -86,7 +86,7 @@ export default function FarmerInfo({farmer :{farmerId,farmerImg,farmerName}}) {
       <div className='w-full m-2'>판매자 {farmerName}의 다른 상품</div>
       <div className='w-full h-full bg-brand p-3'>
           <Slider {...settings} className='w-full'>
-            {products.length>0 && products.map((product, idx)=><div className='w-full h-full'><ProductCard key={idx} data={product}/></div>)}
+            {products.length>0 && products.map((product, idx)=><ProductCard key={idx} data={{...product, farmerId, farmerImg, farmerName}}/>)}
           </Slider>
         </div> 
     </div>

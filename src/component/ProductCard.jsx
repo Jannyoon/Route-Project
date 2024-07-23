@@ -2,15 +2,30 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function ProductCard({data}) {
-  
-  const {imgFirst, option, productId, title} = data;
+  const {buy, 
+    farmerId, 
+    farmerImg, 
+    farmerName, 
+    favorite, 
+    firstKind, 
+    imgList,
+    imgFirst, 
+    keyword, 
+    option, 
+    productDetail, 
+    productId,
+    secondKind, 
+    title} = data;
+    
   const navigate = useNavigate();
   const viewOption = option.split(",").map((op)=>op.trim().split(":"));
   const cardOption = viewOption[0][0];
   const price = viewOption[0][1];
   //console.log(viewOption)
 
-  const handleClick = ()=>{navigate(`/product/${productId}`, {state: data})}  
+  const handleClick = ()=>{
+    navigate(`/product/${productId}`, {state: data})
+  }  
 
   return (
     <div onClick={handleClick}
