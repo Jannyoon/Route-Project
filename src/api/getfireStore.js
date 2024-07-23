@@ -76,10 +76,8 @@ export async function getAllProducts({pageParam}){
 }
 
 
-
 export async function getBestProducts(){
   const db = getFirestore(app);
-  
   const favoriteq =  query(collection(db, 'ROOTUE PROJECT', 'AllProducts', 'productId'),
   orderBy("favorite", "desc"), //latestDocs의 존재 여부를 확인한다
   limit(10));
@@ -90,7 +88,33 @@ export async function getBestProducts(){
     result.push(doc.data()); //snapshot과 데이터를 같이 push한다.
   });
   console.log("베스트 결과...", result);
+  //return querySnapshot;
+  return result;
+}
+
+
+export async function getFarmerProducts(farmerId){
+  const db = getFirestore(app);
+  const q =  query(collection(db, 'ROOTUE PROJECT', 'FarmerStory', farmerId),
+  orderBy("time", "desc")) //latestDocs의 존재 여부를 확인한다;
+
+  const querySnapshot =  await getDocs(q);
+  let result = [];
+  querySnapshot.forEach((doc) => {
+    result.push(doc.data()); //snapshot과 데이터를 같이 push한다.
+  });
 
   //return querySnapshot;
   return result;
+}
+
+export async function getOneProduct(productId){
+  const db = getFirestore(app);
+  const docRef = doc(db, 'ROOTUE PROJECT', 'AllProducts', 'productId', productId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+  } 
+  return docSnap.data();
 }

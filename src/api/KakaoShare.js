@@ -5,10 +5,10 @@ export default function KakaoShare(product) {
   const {imgFirst, title, option} = product;
   //"option":"30미dddddddddddddddddddddd, 50미, 60미",
   
-  let str = option.split(",").map((obj)=>obj.trim().split(":").map((v,i)=>{
+  let str = option ? option.split(",").map((obj)=>obj.trim().split(":").map((v,i)=>{
     if (i===1) return ""+v+"원";
     else return v;
-  }).join("-")).join("/");
+  }).join("-")).join("/") : "";
 
   //console.log("보여줄 것",str)
   const shareKakao = () =>{

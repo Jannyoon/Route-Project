@@ -45,20 +45,20 @@ export default function BestTenProducts() {
 
   const settings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
-    slidesToShow: 3.8,
+    slidesToShow: 4.5,
     slidesToScroll: 3,
-    initialSlide: 0,
     prevArrow: <PrevArrow/>,
     nextArrow: <NextArrow/>,
+    initialSlide: 1,
     responsive: [
       {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2.5,
           slidesToScroll: 2,
-          infinite: false,
+          infinite: true,
           dots: false
         }
       },
@@ -81,7 +81,7 @@ export default function BestTenProducts() {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2.1,
+          slidesToShow: 1.8,
           slidesToScroll: 1
         }
       },
@@ -105,12 +105,12 @@ export default function BestTenProducts() {
 
 
   return (
-    <section className='w-full mt-5'>
+    <section className='w-full h-fit mt-5'>
         <div className='my-2 mx-2 text-lg font-semibold'>실시간 인기 Top 10</div>
-        <div className='w-full h-full bg-brand p-3'>
-          <Slider {...settings} className='w-full'>
-            {bestProducts.map((product, idx)=><div className='w-full h-full'><ProductCard key={idx} data={product}/></div>)}
-          </Slider>
+        <div className='w-full md:w-full lg:w-full h-fit bg-brand p-3 text-center'>
+          {bestProducts && <Slider {...settings} className='w-full h-fit'>
+            {bestProducts.map((product, idx)=><ProductCard key={idx} data={product}/>)}
+          </Slider>}
         </div>  
     </section>
   );

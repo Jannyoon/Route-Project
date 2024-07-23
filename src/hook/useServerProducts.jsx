@@ -43,5 +43,8 @@ export default function useServerProducts(){
     }
   })
 
+
+  
+
   return {getServerProducts}
 }

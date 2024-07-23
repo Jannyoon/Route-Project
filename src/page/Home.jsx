@@ -53,7 +53,7 @@ export default function Home() {
         <div className='my-1'>농어부 지원센터 | 공지사항 | 버그 제보 | 투자/제휴 문의 | 입점 문의</div>
         <div className='my-1'>기업 미션 | 이용약관 | 개인정보 처리방침 | 생산자 이용약관 | 서비스 정책</div>
         <div className='my-1'>사업자 등록번호 : xxx-xx-xxxxx</div>
-        <div className='text-xs mt-5'>ROOTUE는 농어부님들과 우리 모두를 연결해주는 '수수료 없는 진짜 농수산물 직거래 플랫폼입니다. 농장에서 우리집까지 하루 만에 도착하는 신선한 농수산물의 재배과정을 직접 보고 구매하세요!</div>
+        <div className='text-xs mt-5'>OOOO는 농어부님들과 우리 모두를 연결해주는 '수수료 없는 진짜 농수산물 직거래 플랫폼입니다. 농장에서 우리집까지 하루 만에 도착하는 신선한 농수산물의 재배과정을 직접 보고 구매하세요!</div>
       </div>      
     </div>
   );

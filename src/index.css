@@ -21,6 +21,9 @@ code {
     monospace;
 }
 
+.slick-slide {
+  height: auto;
+}
 
 .slick-prev::before,.slick-next::before{
   display:none;
