@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       {path:"me/edit-profile-image", element:<EditProfileImage/>},
       {path:"addProducts", element:<AddProducts/>},
       {path:"products", element:<Products/>},
-      {path:"productDetail", element:<ProductDetail/>},
+      {path:"product/:id", element:<ProductDetail/>},
       {path:"me/add-story", element:<AddStory/>},
       {path:"mystory/:storyid", element:<OneStoryPage/>},
     ]

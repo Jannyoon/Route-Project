@@ -15,7 +15,7 @@ export default function BestTenProducts() {
     "favorite": 3,
     "firstKind":"기타",
     "imgFirst":"http://res.cloudinary.com/doujrgenf/image/upload/v1721217278/inxv83mhvjyywqsl7kr4.jpg",
-    "imgList":"http://res.cloudinary.com/doujrgenf/image/upload/v1721217278/inxv83mhvjyywqsl7kr4.jpg",
+    "imgList":["http://res.cloudinary.com/doujrgenf/image/upload/v1721217278/inxv83mhvjyywqsl7kr4.jpg","http://res.cloudinary.com/doujrgenf/image/upload/v1721217278/inxv83mhvjyywqsl7kr4.jpg"],
     "keyword":"참소라, 자연산",
     "option":"30미dddddddddddddddddddddd, 50미, 60미",
     "productDetail":"대왕참소라",
@@ -26,14 +26,14 @@ export default function BestTenProducts() {
   
 
   const [bestProducts, setBestProducts] = useState([]);
-  
-  {/*가데이터*/}
+  /*
   useEffect(()=>{
     setBestProducts([fakeData, fakeData,fakeData,fakeData,fakeData,fakeData,fakeData,
       fakeData,fakeData,fakeData,fakeData,fakeData,fakeData,fakeData,fakeData,])  
   },[])
+  */
 
-  /*
+  
   useEffect(()=>{
     getBestProducts()
     .then((result)=>{
@@ -42,7 +42,6 @@ export default function BestTenProducts() {
     .catch(console.error);    
   }, [])
 
-  */
 
   const settings = {
     dots: false,
@@ -110,7 +109,7 @@ export default function BestTenProducts() {
         <div className='my-2 mx-2 text-lg font-semibold'>실시간 인기 Top 10</div>
         <div className='w-full h-full bg-brand p-3'>
           <Slider {...settings} className='w-full'>
-            {bestProducts.map((product, idx)=><ProductCard key={idx} data={product}/>)}
+            {bestProducts.map((product, idx)=><div className='w-full h-full'><ProductCard key={idx} data={product}/></div>)}
           </Slider>
         </div>  
     </section>

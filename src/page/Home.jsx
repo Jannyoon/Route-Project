@@ -43,9 +43,9 @@ export default function Home() {
         <div className='mt-3 mx-2 mb-5 text-xl text-brand font-semibold'>전체 상품</div>
       </div>
       <section className='w-full h-full flex flex-col justify-center items-center'> {/*전체 상품 불러오기 */}
-        <div className='w-full h-full grid grid-cols-1 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-4 grid-flow-row '>{content}</div>  
+        <div className='w-full h-full grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-4 grid-flow-row '>{content}</div>  
         {isFetchingNextPage && <div className='w-full p-3 text-center text-xl cursor-pointer'>불러오는 중</div>}
-        {hasNextPage && <div className='w-full p-3 text-center text-xl cursor-pointer' onClick={()=>fetchNextPage()}>더 보기</div>}
+        {hasNextPage && !isFetchingNextPage && <div className='w-full p-3 text-center text-xl cursor-pointer' onClick={()=>fetchNextPage()}>더 보기</div>}
       </section>
       <div className='w-full text-xs mt-2 px-3 pt-8 pb-3'>
         <div className='my-1'>고객센터 - 배송, 취소, 교환, 반품, 환불 안내</div>

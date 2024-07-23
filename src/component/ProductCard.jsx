@@ -1,19 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function ProductCard({data : 
-  {imgFirst, option, productId, title}}) {
+export default function ProductCard({data}) {
   
+  const {imgFirst, option, productId, title} = data;
+  const navigate = useNavigate();
   const viewOption = option.split(",").map((op)=>op.trim().split(":"));
   const cardOption = viewOption[0][0];
   const price = viewOption[0][1];
   //console.log(viewOption)
 
-  
+  const handleClick = ()=>{navigate(`/product/${productId}`, {state: data})}  
 
   return (
-    <div className='border w-40 md:w-48 h-68 flex flex-col justify-center items-center rounded-tr-3xl overflow-hidden cursor-pointer bg-white hover:border-brand'>
-      <div className='w-full flex-shrink-0 basis-2/3 p-3'>
-        <img className="w-full h-full" src={imgFirst}/>  
+    <div onClick={handleClick}
+      className='border w-40 md:w-48 h-68 flex flex-col justify-center items-center rounded-tr-3xl overflow-hidden cursor-pointer bg-white hover:border-brand'>
+      <div className='basis-2/3 w-full flex-shrink-0 flex p-3 justify-center items-center'>
+        <img className="size-40 object-cover" src={imgFirst}/>  
       </div>
       <div className='basis-1/3 w-full h-full flex-grow-0 p-1'>
         <div className='w-full h-1/4 whitespace-nowrap overflow-hidden text-ellipsis'>{title}</div>
