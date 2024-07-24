@@ -9,15 +9,12 @@ import FarmerProfile from './FarmerProfile';
 
 export default function FarmerInfo({farmer :{farmerId,farmerImg,farmerName}}) {
   const [products, setProducts] = useState([]);
-  console.log("farmerId 출력해봐", farmerId);
 
   useEffect(()=>{
     farmerId && getFarmerProducts(farmerId)
     .then((result)=>setProducts(result))
     .catch(console.error);
   },[]);
-
-  console.log("물품 확인", products);
 
   const settings = {
     dots: false,

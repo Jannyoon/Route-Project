@@ -9,7 +9,6 @@ export default function ShareButton({product}) {
   useEffect(()=>{
     Kakao.cleanup();
     Kakao.init(process.env.REACT_APP_KAKAO_JAVASCRIPT_KEY);
-    console.log(Kakao.isInitialized());
   })
 
 

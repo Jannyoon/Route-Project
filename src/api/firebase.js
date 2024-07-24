@@ -271,3 +271,29 @@ export async function addUserProduct(product, userId, productId){
   .then((result)=>{console.log(result);})
   .catch(console.error);
 }
+
+//유저의 카트에 해당 상품이 들어있는가
+export async function IsProduct(userId, productId, optionName){
+  const dbRef = ref(getDatabase());
+  if (!userId || !productId) return;
+  return get(child(dbRef, `Carts/${userId}/${productId}/${optionName}`))
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      let result = snapshot.val();
+      return result;
+    } else return false;
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+
+
+//farmer
+export async function updateUserCart(userId, productId, optionName, product){
+  const db = getDatabase();
+
+  return set(ref(db, `Carts/${userId}/${productId}/${optionName}`), product).catch(()=>{
+    console.log("여기서 에러 발생");
+  });
+
+}
