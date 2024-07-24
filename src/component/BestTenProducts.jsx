@@ -47,7 +47,7 @@ export default function BestTenProducts() {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 5,
     slidesToScroll: 3,
     prevArrow: <PrevArrow/>,
     nextArrow: <NextArrow/>,
@@ -107,8 +107,8 @@ export default function BestTenProducts() {
   return (
     <section className='w-full h-fit mt-5'>
         <div className='my-2 mx-2 text-lg font-semibold'>실시간 인기 Top 10</div>
-        <div className='w-full md:w-full lg:w-full h-fit bg-brand p-3 text-center'>
-          {bestProducts && <Slider {...settings} className='w-full h-fit'>
+        <div className='w-full md:w-full lg:w-full h-fit bg-brand p-3'>
+          {bestProducts && <Slider {...settings} className='w-full'>
             {bestProducts.map((product, idx)=><ProductCard key={idx} data={product}/>)}
           </Slider>}
         </div>  

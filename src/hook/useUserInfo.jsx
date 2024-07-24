@@ -57,6 +57,7 @@ export default function useUserInfo() {
     }
   })
 
+  
   return {userProfile, newSetFarmerInfo, logOutUser, deleteAuth};
 }
 
