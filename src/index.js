@@ -23,6 +23,7 @@ import OneStoryPage from './page/OneStoryPage';
 import EventBanner1 from './page/event/EventBanner1';
 import EventBanner2 from './page/event/EventBanner2';
 import EventBanner3 from './page/event/EventBanner3';
+import FilterProducts from './page/FilterProducts';
 
 
 
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
       {path:"me/edit-profile-image", element:<EditProfileImage/>},
       {path:"addProducts", element:<AddProducts/>},
       {path:"products", element:<Products/>},
+      {path:"products/kindfilter/:id", element:<FilterProducts/>},
       {path:"product/:id", element:<ProductDetail/>},
       {path:"me/add-story", element:<AddStory/>},
       {path:"mystory/:storyid", element:<OneStoryPage/>},
