@@ -23,10 +23,8 @@ export default function ProductCard({data}) {
   const price = viewOption[0][1];
   //console.log(viewOption)
 
-  const handleClick = ()=>{
-    navigate(`/product/${productId}`, {state: data})
-  }  
-
+  const handleClick = () => navigate(`/product/${productId}`, {state: data});
+   
   return (
     <div onClick={handleClick}
       className='border w-40 md:w-48 h-68 flex flex-col justify-center items-center rounded-tr-3xl overflow-hidden cursor-pointer bg-white hover:border-brand'>

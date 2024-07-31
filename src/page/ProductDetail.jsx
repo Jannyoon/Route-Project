@@ -11,6 +11,7 @@ import { getOneProduct } from '../api/getfireStore';
 import { IsProduct, updateUserCart } from '../api/firebase';
 import useCart from '../hook/useCart';
 import { useQueryClient } from '@tanstack/react-query';
+import FavoriteHeart from '../component/FavoriteHeart';
 
 export default function ProductDetail() {
   const {user} = useAuthContext();
@@ -139,7 +140,7 @@ export default function ProductDetail() {
         {!user && <div className='p-2 text-center border'>로그인 후 이용해주세요</div>}
         <div className='flex justify-end gap-2 my-1 items-center'>
           <ShareButton product={product}/>
-          <div>관심 표시</div>
+          <FavoriteHeart product={product}/>
         </div>
         <div className='w-full flex flex-col items-end  border-b-2 border-brand mt-5 md:mt-10'>
           <div>

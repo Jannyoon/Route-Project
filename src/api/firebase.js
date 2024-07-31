@@ -297,3 +297,58 @@ export async function updateUserCart(userId, productId, optionName, product){
   });
 
 }
+
+
+
+//유저의 관심 상품에 해당 상품이 들어있는가
+export async function favoriteChoose(userId, productId){
+  const dbRef = ref(getDatabase());
+  if (!userId || !productId) return 0;
+  return get(child(dbRef, `users/${userId}/favorite/${productId}`))
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      let result = snapshot.val();
+      return result
+    } else return false;
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+
+export async function getUserFavorite(userId){
+  const dbRef = ref(getDatabase());
+  if (!userId) return;
+  return get(child(dbRef, `users/${userId}/favorite`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      let result = snapshot.val();
+      return result;
+    } else return [];
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+
+
+//프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
+export async function addUserFavorite(userId, productId, product){
+  const db = getDatabase();
+  if (!userId || !productId) return;
+  return set(ref(db,`users/${userId}/favorite/${productId}`), product).catch(()=>{
+    console.log("여기서 에러 발생");
+  });
+}
+
+/*
+
+//프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
+export async function updateUserInfo(userInfo, newProp, newVal){
+  const db = getDatabase();
+  return set(ref(db, 'users/' + userInfo.userId), {
+    ...userInfo,
+    [newProp] : newVal
+  }).catch(()=>{
+    console.log("여기서 에러 발생");
+  });
+}
+
+*/
