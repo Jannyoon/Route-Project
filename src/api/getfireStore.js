@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, startAfter} from "firebase/firestore";
+import { getFirestore, serverTimestamp, startAfter} from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
 import {collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit, where, and, or} from "firebase/firestore"; 
@@ -117,4 +117,11 @@ export async function getOneProduct(productId){
     console.log("Document data:", docSnap.data());
   } 
   return docSnap.data();
+}
+
+export async function AddProductFavorite(prevData){
+  const db = getFirestore(app);
+  return await setDoc(doc(db, 'ROOTUE PROJECT', 'AllProducts', 'productId', prevData.productId), 
+  {...prevData, ['favorite']:prevData.favorite+1, ['time']:serverTimestamp()});
+
 }

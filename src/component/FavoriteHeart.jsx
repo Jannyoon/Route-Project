@@ -5,32 +5,29 @@ import { CiHeart } from "react-icons/ci";
 import { useAuthContext } from "../context/useAuthContext";
 import { addUserFavorite } from "../api/firebase";
 
-export default function FavoriteHeart({product:{buy, 
-    farmerId, 
-    farmerName, 
-    firstKind, 
-    imgFirst, 
-    keyword, 
-    productDetail, 
-    productId,
-    secondKind, 
-    title}}){
-
+export default function FavoriteHeart({product:{farmerId, farmerName, firstKind, imgFirst, productDetail, productId,secondKind, title}}){
     const product = {farmerId, farmerName, firstKind, imgFirst, productDetail, productId,secondKind, title};
     const {user} = useAuthContext();
-    console.log("현재 id", productId);
     const userId = user && user.uid;
-    const {isFavoriteProduct, OneProductInfo} = useProductFavorite(productId);
+    let prevData = {};    
+    let favorite = 0;
+
+    const {isFavoriteProduct, OneProductInfo, AddFavoriteNum} = useProductFavorite(productId, product, prevData);
+    if (OneProductInfo.data){
+        favorite = OneProductInfo.data.favorite;
+        prevData = OneProductInfo.data;
+    }    
+    
     const userHeart = isFavoriteProduct.data;
     console.log(userHeart);
-    let favorite = 0;
-    if (OneProductInfo.data) favorite = OneProductInfo.data.favorite;
+
+
     //userHeart는 undefined거나 아님 존재하는 값이거나 둘 중 하나일 것.
     
     const handleHeartClick = ()=>{
         if (!userHeart){
             //사용자가 관심상품으로 등록한 적 없는 경우
-            addUserFavorite(userId, productId, product);
+           AddFavoriteNum.mutate({ productId, product});
         } else {
             //이미 사용자가 관심사품으로 등록한 경우
 
