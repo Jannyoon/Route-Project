@@ -18,7 +18,7 @@ export default function ProductCard({data}) {
     title} = data;
     
   const navigate = useNavigate();
-  const viewOption = option.split(",").map((op)=>op.trim().split(":"));
+  const viewOption = option ? option.split(",").map((op)=>op.trim().split(":")): [["",""]];
   const cardOption = viewOption[0][0];
   const price = viewOption[0][1];
   //console.log(viewOption)

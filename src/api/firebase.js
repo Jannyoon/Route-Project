@@ -338,8 +338,16 @@ export async function addUserFavorite(userId, productId, product){
   });
 }
 
-/*
+export async function removeUserFavorite(userId, productId){
+  const db = getDatabase();
+  if (!userId || !productId) return;
+  return remove(ref(db,`users/${userId}/favorite/${productId}`)).catch(console.error);
+}
 
+
+
+
+/*
 //프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
 export async function updateUserInfo(userInfo, newProp, newVal){
   const db = getDatabase();
@@ -350,5 +358,4 @@ export async function updateUserInfo(userInfo, newProp, newVal){
     console.log("여기서 에러 발생");
   });
 }
-
 */

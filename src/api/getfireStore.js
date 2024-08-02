@@ -122,6 +122,11 @@ export async function getOneProduct(productId){
 export async function AddProductFavorite(prevData){
   const db = getFirestore(app);
   return await setDoc(doc(db, 'ROOTUE PROJECT', 'AllProducts', 'productId', prevData.productId), 
-  {...prevData, ['favorite']:prevData.favorite+1, ['time']:serverTimestamp()});
+  {...prevData, ['favorite']:prevData.favorite+1});
+}
 
+export async function MinusProductFavorite(prevData){
+  const db = getFirestore(app);
+  return await setDoc(doc(db, 'ROOTUE PROJECT', 'AllProducts', 'productId', prevData.productId), 
+  {...prevData, ['favorite']:prevData.favorite-1});
 }

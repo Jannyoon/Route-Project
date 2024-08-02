@@ -1,8 +1,8 @@
 import React from "react";
 import { useAuthContext } from "../context/useAuthContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { favoriteChoose, getUserFavorite } from "../api/firebase";
-import { getOneProduct } from "../api/getfireStore";
+import { favoriteChoose, getUserFavorite, removeUserFavorite } from "../api/firebase";
+import { AddProductFavorite, getOneProduct } from "../api/getfireStore";
 import { addUserFavorite } from "../api/firebase";
 
 export default function useProductFavorite(productId, product, prevData){
@@ -32,49 +32,15 @@ export default function useProductFavorite(productId, product, prevData){
     });
 
     const MinusFavoriteNum = useMutation({
-
-    });
-
-    const AddUserFavorite = useMutation({
-
-    });
-
-    const DeleteUserFavorite = useMutation({
+      mutationFn : ({productId})=>removeUserFavorite(uid, productId),
+      onSuccess : ()=>{
+        queryClient.invalidateQueries({queryKey:['users', uid||"", 'favorite']})
+      }
 
     });
 
 
-    /*
-    const newSetFarmerInfo = useMutation({
-    mutationFn : (userInfo)=> updateFarmerInfo(uid, userInfo),
-    onMutate:()=>{
-      console.log("실행중");
-    },
-    onSuccess : ()=>{
-      console.log("요청 성공")
-      queryClient.invalidateQueries({queryKey:['users', uid||""]});
-      queryClient.invalidateQueries({queryKey:['Farmers', uid||""]});
-    },
-    onError : (result)=>{
-      console.log("요청 실패");
-      console.log(result);
-    }
-  })
-    */
-    return ({isFavoriteProduct, OneProductInfo, AddFavoriteNum});
+
+    return ({isFavoriteProduct, OneProductInfo, AddFavoriteNum, MinusFavoriteNum});
 
 }
-
-/*
-
-export async function getOneProduct(productId){
-  const db = getFirestore(app);
-  const docRef = doc(db, 'ROOTUE PROJECT', 'AllProducts', 'productId', productId);
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-  } 
-  return docSnap.data();
-}
-*/

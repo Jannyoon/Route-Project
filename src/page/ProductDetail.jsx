@@ -114,12 +114,12 @@ export default function ProductDetail() {
       </div>
       <div className='w-full h-full flex justify-center mb-3' >
         <div className='w-full md:w-1/2 md:h-1/2 md:basis-1/2 grow-0 p-3'>
-          {title && imgList.length===1 && 
+          {title && imgList && imgList.length===1 && 
             <div className='w-full h-full bg-slate-50'>
               <img className="w-full h-64 object-contain" src={imgList ? imgList[0]: ""}/>
             </div>
           }
-          {title && imgList.length>1 && <ProductCarousel imgList={imgList}/>}
+          {title && imgList && imgList.length>1 && <ProductCarousel imgList={imgList}/>}
         </div>
       </div>
       <div className='w-full md:w-8/12 h-full mb-6'>
