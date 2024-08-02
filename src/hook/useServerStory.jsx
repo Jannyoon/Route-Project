@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-  useInfiniteQuery
-} from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import { getNextItems } from '../api/getfireStore';
 import { initializeApp } from "firebase/app";
-import { collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit,  getFirestore, startAfter} from "firebase/firestore"; 
+import { collection, getDocs, orderBy, query, limit,  getFirestore, startAfter} from "firebase/firestore"; 
 import { useAuthContext } from '../context/useAuthContext';
 
 const firebaseConfig = {
@@ -28,15 +21,13 @@ export default function useServerStory(){
   const {user} = useAuthContext();
   let userId = user && user.uid;
 
-
   const getAllStoryItems = useInfiniteQuery({
     queryKey : ['ROOTUE PROJECT', 'Story', 'storyID'],
     queryFn : getNextItems,
     initialPageParam : 0,
     getNextPageParam : (lastPage, allPages)=>{
-      console.log({lastPage, allPages});
-      console.log("전달받은 querySnapshot", lastPage);      
-
+      //console.log({lastPage, allPages});
+      //console.log("전달받은 querySnapshot", lastPage);      
       if (lastPage.length<2){
         return null;
       }
@@ -49,9 +40,8 @@ export default function useServerStory(){
     queryFn : getUserNextStory,
     initialPageParam : 0,
     getNextPageParam : (lastPage, allPages)=>{
-      console.log({lastPage, allPages});
-      console.log("전달받은 querySnapshot", lastPage);
-
+      //console.log({lastPage, allPages});
+      //console.log("전달받은 querySnapshot", lastPage);
       if (lastPage.length<8) return null;
       return lastPage[lastPage.length-1][0];
     }
@@ -79,12 +69,10 @@ export default function useServerStory(){
       // doc.data() is never undefined for query doc snapshots
       result.push([doc, doc.data()]); //snapshot과 데이터를 같이 push한다.
     });
-    console.log("결과...", result);
-
-    //return querySnapshot;
+    //console.log("결과...", result);
     return result;
+  }
 
-}
 
   return {getAllStoryItems, getUserStoryItems}
 }

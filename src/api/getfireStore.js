@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, serverTimestamp, startAfter} from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-import {collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit, where, and, or} from "firebase/firestore"; 
+import {collection, doc, setDoc, getDoc, deleteDoc, getDocs, orderBy, query, limit, where, and, or} from "firebase/firestore"; 
 import { addServerProduct } from "./firebase";
 
 
@@ -130,3 +130,11 @@ export async function MinusProductFavorite(prevData){
   return await setDoc(doc(db, 'ROOTUE PROJECT', 'AllProducts', 'productId', prevData.productId), 
   {...prevData, ['favorite']:prevData.favorite-1});
 }
+
+export async function deleteUserStory(userId, storyId){
+  const db = getFirestore(app); 
+  if (!userId || !storyId) return;
+  await deleteDoc(doc(db, 'ROOTUE PROJECT', 'Story', 'storyID', storyId));
+  return await deleteDoc(doc(db, 'ROOTUE PROJECT', 'Userstory', userId, storyId));
+}
+

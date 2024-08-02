@@ -27,8 +27,6 @@ export default function StoryCarousel({storyImgs}) {
     setSHeight(SLIDEHEIGHT);
   });
 
-  console.log("현재 인덱스", currentIdx);
-
   const handleDragClick = (e)=>{
     e.preventDefault();
     setStartX(e.pageX);
