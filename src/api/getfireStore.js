@@ -21,7 +21,7 @@ const analytics = getAnalytics(app);
 
 //하위 컬렉션의 모든 문서 가져오기
 export async function getNextItems({pageParam}){
-  console.log("들어오는 인수", pageParam) //{queryKey: Array(3), pageParam: 0, direction: 'forward', meta: undefined}
+  //console.log("들어오는 인수", pageParam) //{queryKey: Array(3), pageParam: 0, direction: 'forward', meta: undefined}
   const db = getFirestore(app); 
   
   const q = pageParam ? query(collection(db, 'ROOTUE PROJECT', 'Story', 'storyID'),
@@ -34,7 +34,7 @@ export async function getNextItems({pageParam}){
   limit(2));
 
   const querySnapshot =  await getDocs(q);
-  console.log(querySnapshot);
+  //console.log(querySnapshot);
 
   //각각의 doc은 Que:ryDocumentSnapshot이란 이름으로 저장되어 있다.
   //실질적으로 저장했던 데이터는 doc.data() 속에 들어있다.
@@ -87,8 +87,7 @@ export async function getBestProducts(){
   querySnapshot.forEach((doc) => {
     result.push(doc.data()); //snapshot과 데이터를 같이 push한다.
   });
-  console.log("베스트 결과...", result);
-  //return querySnapshot;
+
   return result;
 }
 

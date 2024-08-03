@@ -23,7 +23,10 @@ export default function ProductCard({data}) {
   const price = viewOption[0][1];
   //console.log(viewOption)
 
-  const handleClick = () => navigate(`/product/${productId}`, {state: data});
+  const handleClick = () =>{
+    navigate(`/product/${productId}`, {state: data});
+    window.scrollTo(0,0);
+  }
    
   return (
     <div onClick={handleClick}
