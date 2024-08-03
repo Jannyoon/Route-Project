@@ -43,8 +43,44 @@ export default function useServerProducts(){
     }
   })
 
+  const getServerFarmerProducts = useInfiniteQuery({
+    queryKey : ["ROOTUE PROJECT","FarmerStory", userId],
+    queryFn : getFarmerProducts,
+    initialPageParam : 0,
+    getNextPageParam : (lastPage, allPages) =>{
+      if (lastPage.length<8) return null;
+      return lastPage[lastPage.length-1][0];
+    }
+  })
 
-  
 
-  return {getServerProducts}
+  async function getFarmerProducts({pageParam}){
+    const db = getFirestore(app);
+    const q = pageParam ? query(collection(db, "ROOTUE PROJECT","FarmerStory", userId),
+    orderBy("time"),
+    startAfter(pageParam),
+    limit(8))
+    :
+    query(collection(db, "ROOTUE PROJECT","FarmerStory", userId),
+    orderBy("time"),
+    limit(8));
+    
+    const querySnapshot = await getDocs(q);
+    console.log(querySnapshot);
+
+    //각각의 doc은 QueryDocumentSnapshot이란 이름으로 저장되어 있다.
+    //실질적으로 저장했던 데이터는 doc.data() 속에 들어있다.
+    let result = [];
+    querySnapshot.forEach((doc) => {
+      //console.log(doc); => QueryDocumentSnapshot를 출력한다
+      // doc.data() is never undefined for query doc snapshots
+      result.push([doc, doc.data()]); //snapshot과 데이터를 같이 push한다.
+    });
+    //console.log("결과...", result);
+    return result;
+
+  }
+
+
+  return {getServerProducts, getServerFarmerProducts}
 }
