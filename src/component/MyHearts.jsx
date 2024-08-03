@@ -23,7 +23,7 @@ export default function MyHearts() {
 
   return (
     <div className='w-full h-96 flex flex-col justify-center items-center my-3'>
-      <div className='w-10/12 h-full md:w-9/12 flex flex-col items-center bg-yellow-50 overflow-y-auto'>
+      <div className='w-10/12 h-full md:w-9/12 flex flex-col items-center bg-slate-50 overflow-y-auto'>
         {productList.map((product)=><HeartProduct product={product}/>)}
       </div>
     </div>
