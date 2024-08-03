@@ -21,7 +21,7 @@ export default function ProductDetail() {
   const product = useLocation().state;
   const queryClient = useQueryClient();
   
-  const {buy, 
+  const {
     farmerId, 
     farmerImg, 
     farmerName, 

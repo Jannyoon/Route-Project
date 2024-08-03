@@ -51,7 +51,7 @@ export default function BestTenProducts() {
     slidesToScroll: 3,
     prevArrow: <PrevArrow/>,
     nextArrow: <NextArrow/>,
-    initialSlide: 1,
+    initialSlide: 0,
     responsive: [
       {
         breakpoint: 1024,

@@ -9,7 +9,7 @@ export default function useProductFavorite(productId, product, prevData){
     const {user} = useAuthContext();
     const queryClient = useQueryClient();
     const uid = user && user.uid;
-
+    
     
     const isFavoriteProduct = useQuery({
         queryKey : ['users', uid||"", 'favorite', productId||""],
@@ -42,7 +42,6 @@ export default function useProductFavorite(productId, product, prevData){
       onSuccess : ()=>{
         queryClient.invalidateQueries({queryKey:['users', uid||"", 'favorite']})
       }
-
     });
 
 
