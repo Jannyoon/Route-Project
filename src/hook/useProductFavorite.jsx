@@ -15,7 +15,13 @@ export default function useProductFavorite(productId, product, prevData){
         queryKey : ['users', uid||"", 'favorite', productId||""],
         queryFn : ()=>favoriteChoose(uid, productId),
         enabled : !!uid
-    })
+    });
+
+    const userFavoriteProduct = useQuery({
+      queryKey : ['users', uid||"", 'favorite'],
+      queryFn : ()=>getUserFavorite(uid),
+      enabled : !!uid
+    });
 
     const OneProductInfo = useQuery({
         queryKey : ['ROOTUE PROJECT', 'AllProducts', 'productId', productId||""],
@@ -40,7 +46,6 @@ export default function useProductFavorite(productId, product, prevData){
     });
 
 
-
-    return ({isFavoriteProduct, OneProductInfo, AddFavoriteNum, MinusFavoriteNum});
+    return ({isFavoriteProduct, userFavoriteProduct, OneProductInfo, AddFavoriteNum, MinusFavoriteNum});
 
 }

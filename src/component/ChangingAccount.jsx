@@ -4,9 +4,9 @@ import { IoBagCheckSharp } from "react-icons/io5";
 import useUserInfo from '../hook/useUserInfo';
 import { deleteUserAuth } from '../api/firebase';
 
-export default function ChangingAccount({onCheck, info:{email, isFarmer, nickName, profile_picture, userId, introduction, story},
+export default function ChangingAccount({onCheck, info:{email, isFarmer, nickName, profile_picture, userId, introduction, story, favorite},
 settingFarmer, removingUser}) {
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story: story||""}
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story: story||"", favorite:favorite||""}
   const {newSetFarmerInfo, deleteAuth} = useUserInfo();
   const {handleFarmerSet, handleView, handleRemoveAccountSet} = onCheck;
        //회원 탈퇴 로직

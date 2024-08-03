@@ -321,8 +321,9 @@ export async function getUserFavorite(userId){
   return get(child(dbRef, `users/${userId}/favorite`)).then((snapshot) => {
     if (snapshot.exists()) {
       let result = snapshot.val();
+      console.log(result);
       return result;
-    } else return [];
+    } else return {0:null};
   }).catch((error) => {
     console.error(error);
   });

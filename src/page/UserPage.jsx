@@ -1,21 +1,23 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useAuthContext } from '../context/useAuthContext';
-import useUserInfo from '../hook/useUserInfo';
-import { IoIosArrowBack } from "react-icons/io";
-import { PiDotsThreeVerticalBold } from "react-icons/pi";
-import Profile from '../component/Profile';
-import UserStory from '../component/UserStory';
 import { useNavigate } from 'react-router-dom';
 import { IoExitOutline } from "react-icons/io5";
+import { IoIosArrowBack } from "react-icons/io";
+import { PiDotsThreeVerticalBold } from "react-icons/pi";
+
+import { useAuthContext } from '../context/useAuthContext';
+import useUserInfo from '../hook/useUserInfo';
+
+import Profile from '../component/Profile';
+import UserStory from '../component/UserStory';
 import ChangingAccount from '../component/ChangingAccount';
 import MyProducts from '../component/MyProducts';
+import MyHearts from '../component/MyHearts';
+
 
 export default function UserPage() {
   const {user, LogOut} = useAuthContext();
   const navigate = useNavigate();
 
-  console.log("현재 유저", user);
-  
   if (!user){
     alert("회원만 이용 가능합니다.");
     navigate('/', {replace:true});
@@ -31,11 +33,11 @@ export default function UserPage() {
   const threePoint = useRef();
 
 
-  let [email, isFarmer, nickName, profile_picture, userId, introduction, story] = ['','','','','','',''];
+  let [email, isFarmer, nickName, profile_picture, userId, introduction, story, favorite] = ['','','','','','','', ''];
   const getProfile = userProfile.data;
 
   if (getProfile){
-    [email, isFarmer, nickName, profile_picture, userId, introduction, story] = 
+    [email, isFarmer, nickName, profile_picture, userId, introduction, story, favorite] = 
     [
       getProfile.email,
       getProfile.isFarmer,
@@ -43,11 +45,12 @@ export default function UserPage() {
       getProfile.profile_picture,
       getProfile.userId,
       getProfile.introduction,
-      getProfile.story   //초기 설정하지 않은 유저의 introducton은 undefined로 할당될 것이다.
+      getProfile.story,   //초기 설정하지 않은 유저의 introducton은 undefined로 할당될 것이다.
+      getProfile.favorite
     ];
   }
 
-  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story}; 
+  const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story, favorite}; 
   const handleClick = ()=> navigate('/');
   const handleAdditionalView = ()=> setView(true);
 
@@ -143,8 +146,14 @@ export default function UserPage() {
           onClick={()=>setBottomStory(false)}
           style={!bottomStory ? {'backgroundColor':'rgb(16 185 129/1)'}:{}}
           >내 상품</div>}   
+        {!isFarmer && <div 
+          className='border px-2 rounded-md hover:cursor-pointer hover:bg-slate-100' 
+          onClick={()=>setBottomStory(false)}
+          style={!bottomStory ? {'backgroundColor':'rgb(16 185 129/1)'}:{}}
+          >관심상품</div>} 
       </div>
       {bottomStory && <UserStory />}
+      {!isFarmer && !bottomStory && <MyHearts/>}
       {isFarmer && !bottomStory && <MyProducts/>}
       {(farmerAccount || removeAccount) && (<ChangingAccount onCheck={{handleFarmerSet, handleView, handleRemoveAccountSet}} 
         info={userInfo} 
