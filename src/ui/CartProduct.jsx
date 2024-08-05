@@ -6,12 +6,13 @@ import { FaSquareMinus } from "react-icons/fa6";
 
 export default function CartProduct({product}) {
   return (
-    <div className='w-full  md:w-11/12 lg:w-9/12 h-28 border rounded-md flex justify-between justify-center items-center bg-white p-2 m-1 hover:border-fcs'
+    <div className='w-full  md:w-11/12 lg:w-9/12 h-28 border rounded-md flex justify-between items-center bg-white p-2 m-1 hover:border-fcs'
     >
       <img src={product.imgFirst} className='w-16 h-16 md:w-24 md:h-24 flex-shrink-0'/>
       <div className='w-28 md:w-32 p-1'>
         <p className='w-28 md:w-32 whitespace-nowrap overflow-hidden text-ellipsis'>{product.title}</p>
         <p className='text-xs text-gray-600'>{product.productOption[0]}</p>
+        <p className='text-xs text-gray-600 mt-2'>개당 {product.productOption[1]??3000} ₩</p>
       </div>
 
       <div className='flex justify-center items-center'>
