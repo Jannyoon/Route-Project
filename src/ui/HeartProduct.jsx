@@ -16,7 +16,10 @@ export default function HeartProduct({product}) {
   let serverProduct = OneProductInfo.data;
 
   const handleProductClick = ()=>{
-    if (serverProduct) navigate(`/product/:${product.productId}`, {state:serverProduct});
+    if (serverProduct){
+      navigate(`/product/:${product.productId}`, {state:serverProduct});
+      window.scrollTo(0,0);
+    }
   }
   
   const handleTrashClick = (e)=>{

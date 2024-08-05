@@ -24,6 +24,7 @@ import EventBanner1 from './page/event/EventBanner1';
 import EventBanner2 from './page/event/EventBanner2';
 import EventBanner3 from './page/event/EventBanner3';
 import FilterProducts from './page/FilterProducts';
+import Cart from './page/Cart';
 
 
 
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
       {path:"product/:id", element:<ProductDetail/>},
       {path:"me/add-story", element:<AddStory/>},
       {path:"mystory/:storyid", element:<OneStoryPage/>},
+      {path:"me/cart", element:<Cart/>}
     ]
   },
 ]);

@@ -72,6 +72,8 @@ export default function ProductDetail() {
     const sendProduct = {
       userId:user.uid,
       productId, 
+      imgList,
+      imgFirst, 
       title, 
       count: parseInt(count), 
       productOption:nowOption, 

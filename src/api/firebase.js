@@ -345,18 +345,16 @@ export async function removeUserFavorite(userId, productId){
   return remove(ref(db,`users/${userId}/favorite/${productId}`)).catch(console.error);
 }
 
-
-
-
-/*
-//프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
-export async function updateUserInfo(userInfo, newProp, newVal){
-  const db = getDatabase();
-  return set(ref(db, 'users/' + userInfo.userId), {
-    ...userInfo,
-    [newProp] : newVal
-  }).catch(()=>{
-    console.log("여기서 에러 발생");
+export async function getUserCart(userId){
+  const dbRef = ref(getDatabase());
+  if (!userId) return;
+  return get(child(dbRef, `Carts/${userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      let result = snapshot.val();
+      return result;
+    }
+  }).catch((error) => {
+    console.error(error);
   });
 }
-*/
+

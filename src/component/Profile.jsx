@@ -30,9 +30,11 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
 
   const userInfo = {email, isFarmer, nickName, profile_picture, userId, introduction, story};
 
-  const handleChangeNameClick = ()=>{navigate('/me/editName')}
-  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction')}
-  const handleChangeProfileImage = ()=>{navigate('/me/edit-profile-image')}
+  const handleChangeNameClick = ()=>{navigate('/me/editName')};
+  const handleChangeIntroduction = ()=>{navigate('/me/edit-introduction')};
+  const handleChangeProfileImage = ()=>{navigate('/me/edit-profile-image')};
+  const handleCartClick = ()=>{navigate("/me/cart")};
+
   return (
     <div className='w-10/12 md:w-9/12 mt-7 px-1 md:px-4'>
       <div className='w-full'>
@@ -80,7 +82,7 @@ export default function Profile({info:{email, isFarmer, nickName, profile_pictur
           </p>
         </div> {/*useState 값에 따라 접기, 더보기 교차 */}
         <div className='w-full flex justify-center gap-2'>
-          <Button text={"장바구니"}/>
+          <Button text={"장바구니"} onClick={handleCartClick}/>
           <Button text={"배송 정보"}/>
         </div>  
       </div>        
