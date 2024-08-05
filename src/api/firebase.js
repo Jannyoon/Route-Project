@@ -353,8 +353,36 @@ export async function getUserCart(userId){
       let result = snapshot.val();
       return result;
     }
+    else return {};
   }).catch((error) => {
     console.error(error);
   });
 }
 
+
+//프로퍼티 추가, 혹은 데이터 수정할 때 사용하는 함수
+export async function addCartProductNum(userId, newProduct){
+  const db = getDatabase();
+  if (!userId || !newProduct) return;
+  let [productId,optionName] = [newProduct.productId, newProduct.productOption[0]];
+  return set(ref(db,`Carts/${userId}/${productId}/${optionName}`), newProduct).catch(()=>{
+    console.log("여기서 에러 발생");
+  });
+}
+
+
+export async function MinusCartProductNum(userId, newProduct){
+  const db = getDatabase();
+  if (!userId || !newProduct) return;
+  let [productId ,optionName] = [newProduct.productId, newProduct.productOption[0]];
+  return set(ref(db,`Carts/${userId}/${productId}/${optionName}`), newProduct).catch(()=>{
+    console.log("여기서 에러 발생");
+  });
+}
+
+export async function removeCartProduct(userId, product){
+  const db = getDatabase();
+  if (!userId || !product) return;
+  let [productId, optionName] = [product.productId, product.productOption[0]];
+  return remove(ref(db,`Carts/${userId}/${productId}/${optionName}`)).catch(console.error);
+}
