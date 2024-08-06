@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/useAuthContext';
 import { getAuthChanged } from '../api/firebase';
 
 import { TbSquarePlus2 } from "react-icons/tb";
 import useUserInfo from '../hook/useUserInfo';
+import useServerProducts from '../hook/useServerProducts';
+import { getAllList } from '../api/getfireStore';
+import { useProductsContext } from '../context/useProductsContext';
+import SearchBar from '../component/SearchBar';
 
 export default function Navbar() {
   const {user, Login, LogOut} = useAuthContext();
-  const [nowUser, setNowUser] = useState();
   const {userProfile} = useUserInfo();
 
   let getProfile = userProfile.data;
@@ -16,9 +19,10 @@ export default function Navbar() {
   const navigate = useNavigate();
   const handleHomeClick = ()=> navigate('/');
   const handleLogInClick = ()=>navigate('join');
-  const handleAddStory = ()=> navigate('/me/add-story')
+  const handleAddStory = ()=> navigate('/me/add-story');
 
-
+  //getServerProducts는 useInfiniteQuery를 사용해, 최신 업데이트 상품 순으로 정보를 받아옴
+  //해당 정보가 달라지지 않는 이상, productData는 고정값으로 사용하겠다.
   return (
     <div className='flex justify-between mt-3'>
       <div className='flex justify-center items-end'>
@@ -32,9 +36,7 @@ export default function Navbar() {
         >스토리</div>        
       </div>
       <div className='flex justify-center items-center'>
-        <input 
-          className='w-20 h-6 mr-1 md:w-60 bg-transparent border-b-2 border-brand focus:outline-none focus:border-fcs p-2' placeholder='검색' 
-        />
+        <SearchBar/>
         {user && (<div className='mx-1 md:mx-3 hover:cursor-pointer text-2xl md:text-3xl text-center hover:text-brand'
           onClick={handleAddStory}
         >

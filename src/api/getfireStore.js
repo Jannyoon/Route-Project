@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, serverTimestamp, startAfter} from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 
-import {collection, doc, setDoc, getDoc, deleteDoc, getDocs, orderBy, query, limit, where, and, or} from "firebase/firestore"; 
+import {collection, onSnapshot, doc, setDoc, getDoc, deleteDoc, getDocs, orderBy, query, limit, where, and, or} from "firebase/firestore"; 
 import { addServerProduct } from "./firebase";
 
 
@@ -137,3 +137,29 @@ export async function deleteUserStory(userId, storyId){
   return await deleteDoc(doc(db, 'ROOTUE PROJECT', 'Userstory', userId, storyId));
 }
 
+export async function getAllList(){
+  const db = getFirestore(app);
+  const querySnapshot = await getDocs(collection(db, 'ROOTUE PROJECT', 'AllProducts', 'productId'));
+  let list = [];
+  querySnapshot.forEach((doc) => {
+    // doc.data() is never undefined for query doc snapshots
+    list.push(doc.data());
+  });
+  return list;
+}
+
+export async function snapshotListener(callback){
+  const db = getFirestore(app);
+  const q = query(collection(db, 'ROOTUE PROJECT', 'AllProducts', 'productId'), 
+  orderBy("time", "desc"), limit(1));
+  const list = [];
+  const unsubscribe = onSnapshot(q, (querySnapshot)=>{
+    querySnapshot.forEach((doc) => {
+        list.push(doc.data());
+    });
+    console.log(list);
+    //console.log("Current cities in CA: ", cities.join(", "));
+  }); 
+  callback(list);
+  return unsubscribe;  
+}

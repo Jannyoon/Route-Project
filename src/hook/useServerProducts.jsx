@@ -7,7 +7,7 @@ import {
   QueryClientProvider,
   useInfiniteQuery
 } from '@tanstack/react-query'
-import { getAllProducts, getBestProducts } from '../api/getfireStore';
+import { getAllList, getAllProducts } from '../api/getfireStore';
 import { initializeApp } from "firebase/app";
 import { collection, doc, setDoc, getDoc, getDocs, orderBy, query, limit,  getFirestore, startAfter} from "firebase/firestore"; 
 import { useAuthContext } from '../context/useAuthContext';
@@ -66,7 +66,7 @@ export default function useServerProducts(){
     limit(8));
     
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot);
+    //console.log(querySnapshot);
 
     //각각의 doc은 QueryDocumentSnapshot이란 이름으로 저장되어 있다.
     //실질적으로 저장했던 데이터는 doc.data() 속에 들어있다.
@@ -80,6 +80,7 @@ export default function useServerProducts(){
     return result;
 
   }
+
 
 
   return {getServerProducts, getServerFarmerProducts}
