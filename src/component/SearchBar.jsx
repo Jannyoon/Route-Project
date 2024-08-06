@@ -4,21 +4,17 @@ import { getAllList } from '../api/getfireStore';
 import { useProductsContext } from '../context/useProductsContext';
 
 export default function SearchBar() {
-  const {snap} = useProductsContext();
+  const {snap, dataTrie} = useProductsContext();
   const [serverProducts, setServerProducts] = useState();
-  const [dataArr, setDataArr] = useState();
   const [text, setText] = useState('');
   const handleChange = (e)=>{
     setText(e.target.value);
   }
 
-  const getAllData = useCallback(async ()=>{
-    console.log("데이터 읽어서 저장함");
-    await getAllList().then(result => setServerProducts(result));    
-  }, [snap]);
 
   useEffect(()=>{
-    getAllData();
+    console.log("스냅 출력", snap);
+    console.log(dataTrie);
   }, [snap])
 
 

@@ -148,11 +148,14 @@ export async function getAllList(){
   return list;
 }
 
+
 export async function snapshotListener(callback){
   const db = getFirestore(app);
   const q = query(collection(db, 'ROOTUE PROJECT', 'AllProducts', 'productId'), 
-  orderBy("time", "desc"), limit(1));
+  orderBy('time', 'desc'), limit(1));
+
   const list = [];
+
   const unsubscribe = onSnapshot(q, (querySnapshot)=>{
     querySnapshot.forEach((doc) => {
         list.push(doc.data());
@@ -160,6 +163,6 @@ export async function snapshotListener(callback){
     console.log(list);
     //console.log("Current cities in CA: ", cities.join(", "));
   }); 
-  callback(list);
+  callback(...list);
   return unsubscribe;  
 }
