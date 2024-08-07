@@ -23,12 +23,12 @@ export default function SearchResult() {
       <div className='w-full text-2xl md:text-3xl my-3'><span className='text-brand'>{textResult ||`""`}</span>의 검색 결과</div>
       {/*추천 검색 결과*/}
       {topResult && topResult.length>0 && 
-      <div className=' w-full h-full border-b-2 pb-3 mb-3'>
+      <div className='flex-shrink-0 w-full basis-1/2 border-b-2 pb-3 mb-3'>
         <div className='w-full basis-1/4 text-xl mb-4'>추천 검색 결과</div>
         <PaginatedItems itemsPerPage={4} items={topResult}/>
       </div>}
       {/*연관 검색 결과*/}
-      <div className=' w-full h-full '>
+      <div className='flex-shrink-0 w-full basis-1/2'>
         <div className='w-full basis-1/4 text-xl mb-4'>연관 검색 결과</div>
         {relatedResult.length>0 ?
           <PaginatedItems itemsPerPage={4} items={relatedResult}/>
