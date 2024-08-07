@@ -49,7 +49,6 @@ class Trie {
     });
 
     //개수 제한
-    if (list.length>10) return list.slice(0,11);
     return list;
     //끝까지 모두 찾았을 경우, 해당 child에 속한 식구들을 모두...
   }

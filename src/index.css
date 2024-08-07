@@ -34,3 +34,35 @@ code {
   width:20px;
   margin:1px;
 }
+
+.pagination {
+  margin-top: 2rem;
+  width: 100%;
+  flex-basis: 1/10;
+  flex-shrink: 0;
+  background-color: yellow;
+  padding: 0.3rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  > * {
+    cursor: pointer;
+  }
+
+  > *:hover{
+    background-color: rgb(172, 195, 195);
+    border-radius: 0.3rem;
+  }
+}
+
+.pagination__link {
+  transition: all 0.25s;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.3rem;
+}
+
+.pagination__link__active {
+  background-color: #5ac5a0;
+  color: #fefefe;
+}

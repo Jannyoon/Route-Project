@@ -36,6 +36,8 @@ export default function SearchBar() {
 
   useEffect(()=>{
     let searchList = dataTrie.search(text);
+    if (searchList.length>10) searchList = searchList.slice(0,11);
+
     if (!searchList) setIsTyping(false);
     else if (!isTyping && text!=='' && searchList) setIsTyping(true);
     setUserSearchList(searchList || []);
