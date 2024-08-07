@@ -40,7 +40,6 @@ code {
   width: 100%;
   flex-basis: 1/10;
   flex-shrink: 0;
-  background-color: yellow;
   padding: 0.3rem;
   display: flex;
   justify-content: center;

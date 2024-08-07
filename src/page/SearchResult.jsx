@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useProductsContext } from '../context/useProductsContext';
 import PaginatedItems from '../component/paginate/PaginatedItems';
+import getRelatedResults from '../hook/getRelatedResults';
 
 export default function SearchResult() {
   const {snap, dataTrie} = useProductsContext();
@@ -9,6 +10,7 @@ export default function SearchResult() {
 
   //const topResult = useMemo(()=>dataTrie.search(textResult), [textResult]);
   const topResult = dataTrie.search(textResult)||[];
+  const relatedResult = getRelatedResults(textResult, snap);
 
 
   if (!textResult || textResult==='blank' || textResult==='') return (
@@ -17,15 +19,20 @@ export default function SearchResult() {
   </div>
   )
   return (
-    <div className='w-full h-svh bg-yellow-50 flex flex-col items-center p-2 gap-2'>
+    <div className='w-full h-svh flex flex-col items-center p-2 gap-2'>
       <div className='w-full text-2xl md:text-3xl my-3'><span className='text-brand'>{textResult ||`""`}</span>의 검색 결과</div>
+      {/*추천 검색 결과*/}
       {topResult && topResult.length>0 && 
-      <div className='flex-shrink-0 w-full basis-1/2 bg-blue-100'>
-        <div className='w-full basis-1/4 mb-2'>추천 검색 결과</div>
+      <div className=' w-full h-full border-b-2 pb-3 mb-3'>
+        <div className='w-full basis-1/4 text-xl mb-4'>추천 검색 결과</div>
         <PaginatedItems itemsPerPage={4} items={topResult}/>
       </div>}
-      <div className='flex-shrink-0 w-full basis-1/2 bg-gray-300'>
-          dd
+      {/*연관 검색 결과*/}
+      <div className=' w-full h-full '>
+        <div className='w-full basis-1/4 text-xl mb-4'>연관 검색 결과</div>
+        {relatedResult.length>0 ?
+          <PaginatedItems itemsPerPage={4} items={relatedResult}/>
+          :<div>검색 결과가 없습니다.</div>}
       </div>
     </div>
   );
