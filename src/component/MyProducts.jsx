@@ -48,7 +48,8 @@ export default function MyProducts() {
 
     if (obj.length===(idx+1)) return (
       <div onClick={()=>{
-        navigate(`/product/:${productId}`, {state:sendData})
+        navigate(`/product/:${productId}`, {state:sendData});
+        window.scrollTo(0,0);
       }}
         ref={ref} className='flex justify-center border mt-4 mr-1 py-2 cursor-pointer hover:bg-brand'>
         <img className="w-36 h-36 md:w-72 md:h-72" src={realData.imgFirst}/>
@@ -56,7 +57,8 @@ export default function MyProducts() {
     );
     return (
       <div onClick={()=>{
-        navigate(`/product/:${productId}`, {state:sendData})
+        navigate(`/product/:${productId}`, {state:sendData});
+        window.scrollTo(0,0);
       }}
         className='flex justify-center border mt-4 mr-1 py-2 cursor-pointer hover:bg-brand'>
         <img className="w-36 h-36 md:w-72 md:h-72" src={realData.imgFirst}/>
