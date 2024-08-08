@@ -12,7 +12,6 @@ export default function SearchBar() {
   const [isTyping, setIsTyping] = useState(false);
   const [userSearchList, setUserSearchList] = useState([]);
   const navigate = useNavigate();
-  console.log("현재 데이터 목록", snap);
   
   const handleChange = (e)=>{
     setText(e.target.value);

@@ -6,12 +6,32 @@ export default function productListData (){
 
     let vegeList = [
       '상품선택', '가지', '감자', '고구마', '고추', '나물류', '당근', '대추', '도라지', '마', '마늘', '무', '배추', '버섯', '브로콜리', 
-  '비트', '삼', '생강', '쌈채소', '아보카도', '아스파라거스', '야콘', '양배추', '양파', '연근', '오이', '옥수수', '채소꾸러미',
-  '초석잠', '콜라비', '파', '파프리카', '허브', '호두', '호박', '셀러리'
+      '비트', '삼', '생강', '쌈채소', '아보카도', '아스파라거스', '야콘', '양배추', '양파', '연근', '오이', '옥수수', '채소꾸러미',
+      '초석잠', '콜라비', '파', '파프리카', '허브', '호두', '호박', '셀러리'
     ];
    
     let etcList = ['상품선택','계란', '고춧가루', '김치', '꿀', '수제청', '쌀/잡곡류', '해산물', '육류'];
   
+    function typeList(type){
+      let list = [];
+      switch(type) {
+        case '과일':
+          list =  fruitList;
+          break;
+        
+        case '채소':
+          list = vegeList;
+          break;
+        
+        case '기타':
+          list = etcList;
+          break;
 
-    return {fruitList, vegeList, etcList};
+         default : 
+          break; 
+      }
+
+      return list;
+    }
+    return {fruitList, vegeList, etcList, typeList};
 }

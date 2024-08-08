@@ -1,7 +1,7 @@
 export default function KakaoShare(product) {
   const {Kakao} = window;
-  const realUrl = "https://jann-rooute-project.netlify.app/"
-  const {imgFirst, title, option} = product;
+  const realUrl = window.location.href;
+  const {imgFirst, title, option, productId} = product;
   //"option":"30미dddddddddddddddddddddd, 50미, 60미",
   
   let str = option ? option.split(",").map((obj)=>obj.trim().split(":").map((v,i)=>{

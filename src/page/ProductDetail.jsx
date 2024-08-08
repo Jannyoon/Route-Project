@@ -12,32 +12,33 @@ import { IsProduct, updateUserCart } from '../api/firebase';
 import useCart from '../hook/useCart';
 import { useQueryClient } from '@tanstack/react-query';
 import FavoriteHeart from '../component/FavoriteHeart';
+import useProductFavorite from '../hook/useProductFavorite';
 
-export default function ProductDetail() {
+export default function ProductDetail() {  
+  let link = window.location.href;
+  let lastIdx = link.lastIndexOf("/");
+  const LinkProductId = link.slice(lastIdx+1);
+
   const {user} = useAuthContext();
+  const {OneProductInfo} = useProductFavorite(LinkProductId);
   const [viewDetail, setViewDetail] = useState(false);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
-  const product = useLocation().state;
+  const product =  useLocation().state || (OneProductInfo.data && {...OneProductInfo.data});
   const queryClient = useQueryClient();
+
+  let farmerId = product && product.farmerId;
+  let farmerImg = product && product.farmerImg;
+  let farmerName = product && product.farmerName;
+  let imgList = product && product.imgList;
+  let imgFirst =product && product.imgFirst;
+  let keyword = product && product.keyword;
+  let option = product && product.option;
+  let productDetail = product && product.productDetail;
+  let productId= product && product.productId;
+  let title=product && product.title;
+
   
-  const {
-    farmerId, 
-    farmerImg, 
-    farmerName, 
-    favorite, 
-    firstKind, 
-    imgList,
-    imgFirst, 
-    keyword, 
-    option, 
-    productDetail, 
-    productId,
-    secondKind, 
-    title} = product;
-
-  //const titlePrice = option ? option.split(",")[0].split(":") : 0;
-
   const optionPrice = option ? option.split(",").map((v)=>v.trim().split(":")): [""];
   //console.log("옵션별로..", optionPrice);
   const [nowOption, setNowOption] = useState(optionPrice[0]); //["optionname", "${priceNum}"]
@@ -52,7 +53,7 @@ export default function ProductDetail() {
 
   const handleViewClick = ()=>setViewDetail(prev => !prev);
   if (!product){
-    return (<div>subProduct 출력</div>);
+    return (<div>로딩 중...</div>);
   }
 
   const handleOptionChange = (e)=>{

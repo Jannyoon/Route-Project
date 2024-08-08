@@ -25,10 +25,10 @@ export default function PaginatedItems({itemsPerPage, items}) {
       <Items currentItems={currentItems}/>
       <ReactPaginate
         breakLabel="..."
-        nextLabel="다음"
+        nextLabel=">"
         onPageChange={handlePageClick}
         pageCount={pageCount}
-        previousLabel="이전"
+        previousLabel="<"
         renderOnZeroPageCount={null}
         containerClassName={"pagination"}
         pageLinkClassName={"pagination__link"}
