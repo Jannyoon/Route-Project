@@ -55,7 +55,7 @@ export default function FilterProducts() {
       </div>
       <div className='flex-grow h-full flex flex-col overflow-y-auto gap-1 pl-4'>
         {/*secondList && secondList.map(product => <div className='flex-shrink-0'>{product.title}</div>)*/}
-        {secondList.length>0 && <div className='w-full h-full flex-shrink'><PaginatedItems itemsPerPage={8} items={secondList}/></div>}
+        {secondList.length>0 && <div className='w-full h-full flex-shrink'><PaginatedItems itemsPerPage={8} items={secondList} selected={selected}/></div>}
         {(selected==="전체 상품" || selected==="all") && secondList.length===0 && <div>메뉴를 선택하세요</div>}
         {selected!=="전체 상품" && selected!=="all" && secondList.length===0 && <div>검색 결과가 없습니다.</div>}
       </div>

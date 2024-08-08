@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import Items from './Items';
 
 
-export default function PaginatedItems({itemsPerPage, items}) {
+export default function PaginatedItems({itemsPerPage, items, selected}) {
   const [itemOffset, setItemOffset] = useState(0);
-
+  console.log("현재 items 출력", items);
   const endOffset = itemOffset + itemsPerPage;
   console.log(`Loading items from ${itemOffset} to ${endOffset}`);
   const currentItems = items.slice(itemOffset, endOffset);
@@ -19,6 +19,10 @@ export default function PaginatedItems({itemsPerPage, items}) {
     );
     setItemOffset(newOffset);
   };
+
+  useEffect(()=>{
+    setItemOffset(0);
+  },[selected])
 
   return (
     <div className='w-full h-full flex flex-col'>
