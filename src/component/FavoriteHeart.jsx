@@ -29,8 +29,8 @@ export default function FavoriteHeart({product:{farmerId, farmerName, firstKind,
         if (!userHeart){
             //사용자가 관심상품으로 등록한 적 없는 경우
            AddFavoriteNum.mutate({ productId, product},{
-              onSuccess:()=>{
-                AddProductFavorite(prevData);
+              onSuccess: async ()=>{
+                await AddProductFavorite(prevData);
                 queryClient.invalidateQueries({queryKey:['ROOTUE PROJECT', 'AllProducts', 'productId', productId||""]});
                 alert("관심상품에 추가되었습니다.")
               }
@@ -39,8 +39,8 @@ export default function FavoriteHeart({product:{farmerId, farmerName, firstKind,
         } else {
             //이미 사용자가 관심상품으로 등록한 경우
             MinusFavoriteNum.mutate({productId}, {
-              onSuccess : ()=>{
-                MinusProductFavorite(prevData);
+              onSuccess : async ()=>{
+                await MinusProductFavorite(prevData);
                 queryClient.invalidateQueries({queryKey:['ROOTUE PROJECT', 'AllProducts', 'productId', productId||""]});
                 alert("관심상품에서 삭제되었습니다.")
               }
