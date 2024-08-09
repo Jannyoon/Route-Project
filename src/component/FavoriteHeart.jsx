@@ -32,6 +32,7 @@ export default function FavoriteHeart({product:{farmerId, farmerName, firstKind,
               onSuccess:()=>{
                 AddProductFavorite(prevData);
                 queryClient.invalidateQueries({queryKey:['ROOTUE PROJECT', 'AllProducts', 'productId', productId||""]});
+                alert("관심상품에 추가되었습니다.")
               }
             }
            );
@@ -41,11 +42,13 @@ export default function FavoriteHeart({product:{farmerId, farmerName, firstKind,
               onSuccess : ()=>{
                 MinusProductFavorite(prevData);
                 queryClient.invalidateQueries({queryKey:['ROOTUE PROJECT', 'AllProducts', 'productId', productId||""]});
+                alert("관심상품에서 삭제되었습니다.")
               }
             })
         }
     }
 
+    if (!user) return <></>
     return (
         <div className="flex flex-col justify-center items-center">
             <CiHeart className="text-3xl cursor-pointer hover:scale-105 " 

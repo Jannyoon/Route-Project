@@ -22,7 +22,7 @@ export default function PaginatedItems({itemsPerPage, items, selected}) {
 
   useEffect(()=>{
     setItemOffset(0);
-  },[selected])
+  },[selected, items])
 
   return (
     <div className='w-full h-full flex flex-col'>
